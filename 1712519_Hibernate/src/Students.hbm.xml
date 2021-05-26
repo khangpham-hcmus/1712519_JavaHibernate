@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Students" table="students" schema="dangkyhocphan">
+        <composite-id mapped="true" class="pojo.StudentsPK">
+            <key-property name="studentId">
+                <column name="StudentID" sql-type="varchar(10)" length="10"/>
+            </key-property>
+            <key-property name="classId">
+                <column name="ClassID" sql-type="varchar(10)" length="10"/>
+            </key-property>
+        </composite-id>
+        <property name="studentName">
+            <column name="StudentName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="gender">
+            <column name="Gender" sql-type="varchar(6)" length="6" not-null="true"/>
+        </property>
+        <property name="userName">
+            <column name="UserName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

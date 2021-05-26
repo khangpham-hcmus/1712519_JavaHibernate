@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Courses" table="courses" schema="dangkyhocphan">
+        <composite-id mapped="true" class="pojo.CoursesPK">
+            <key-property name="semesterYear">
+                <column name="SemesterYear" sql-type="varchar(4)" length="4"/>
+            </key-property>
+            <key-property name="semesterName">
+                <column name="SemesterName" sql-type="varchar(3)" length="3"/>
+            </key-property>
+            <key-property name="subjectId">
+                <column name="SubjectID" sql-type="varchar(10)" length="10"/>
+            </key-property>
+            <key-property name="classId">
+                <column name="ClassID" sql-type="varchar(10)" length="10"/>
+            </key-property>
+        </composite-id>
+        <property name="theoryTeacher">
+            <column name="TheoryTeacher" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="dayOfWeek">
+            <column name="DayOfWeek" sql-type="varchar(10)" length="10" not-null="true"/>
+        </property>
+        <property name="shift">
+            <column name="Shift" sql-type="int" not-null="true"/>
+        </property>
+        <property name="maxSlot">
+            <column name="MaxSlot" sql-type="int" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

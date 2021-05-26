@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="pojo.Teachermanagers" table="teachermanagers" schema="dangkyhocphan">
+        <id name="teacherManagerId">
+            <column name="TeacherManagerID" sql-type="varchar(10)" length="10"/>
+        </id>
+        <property name="teacherManagerName">
+            <column name="TeacherManagerName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+        <property name="userName">
+            <column name="UserName" sql-type="varchar(50)" length="50" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

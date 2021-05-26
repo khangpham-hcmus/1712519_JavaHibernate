@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.ejb.metamodel.population">disabled</property>
+        <!--Information to connect DB Client-->
+        <property name="connection.url">jdbc:mysql://localhost:3306/dangkyhocphan</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">01655722849Khang</property>
+        <!--Mapping-->
+        <mapping resource="Accounts.hbm.xml"/>
+        <mapping class="pojo.Accounts"/>
+        <mapping class="pojo.Classes"/>
+        <mapping resource="Classes.hbm.xml"/>
+        <mapping resource="Courses.hbm.xml"/>
+        <mapping class="pojo.Courses"/>
+        <mapping class="pojo.Semesters"/>
+        <mapping resource="Semesters.hbm.xml"/>
+        <mapping class="pojo.Students"/>
+        <mapping resource="Students.hbm.xml"/>
+        <mapping class="pojo.Studentscourses"/>
+        <mapping resource="Studentscourses.hbm.xml"/>
+        <mapping class="pojo.Subjects"/>
+        <mapping resource="Subjects.hbm.xml"/>
+        <mapping resource="Teachermanagers.hbm.xml"/>
+        <mapping class="pojo.Teachermanagers"/>
+
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
