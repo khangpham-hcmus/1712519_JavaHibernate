@@ -77,4 +77,15 @@ public class Studentscourses {
     public int hashCode() {
         return Objects.hash(studentId, classId, semesterYear, semesterName, subjectId);
     }
+
+    @Override
+    public String toString() {
+        return "Studentscourses{" +
+                "studentId='" + studentId + '\'' +
+                ", classId='" + classId + '\'' +
+                ", semesterYear='" + semesterYear + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                ", subjectId='" + subjectId + '\'' +
+                '}';
+    }
 }

@@ -107,4 +107,18 @@ public class Courses {
     public int hashCode() {
         return Objects.hash(semesterYear, semesterName, subjectId, classId, theoryTeacher, dayOfWeek, shift, maxSlot);
     }
+
+    @Override
+    public String toString() {
+        return "Courses{" +
+                "semesterYear='" + semesterYear + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                ", subjectId='" + subjectId + '\'' +
+                ", classId='" + classId + '\'' +
+                ", theoryTeacher='" + theoryTeacher + '\'' +
+                ", dayOfWeek='" + dayOfWeek + '\'' +
+                ", shift=" + shift +
+                ", maxSlot=" + maxSlot +
+                '}';
+    }
 }

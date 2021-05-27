@@ -31,4 +31,11 @@ public class Classes {
     public int hashCode() {
         return Objects.hash(classId);
     }
+
+    @Override
+    public String toString() {
+        return "Classes{" +
+                "classId='" + classId + '\'' +
+                '}';
+    }
 }
