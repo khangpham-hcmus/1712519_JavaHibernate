@@ -54,4 +54,13 @@ public class Teachermanagers {
     public int hashCode() {
         return Objects.hash(teacherManagerId, teacherManagerName, userName);
     }
+
+    @Override
+    public String toString() {
+        return "Teachermanagers{" +
+                "teacherManagerId='" + teacherManagerId + '\'' +
+                ", teacherManagerName='" + teacherManagerName + '\'' +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }

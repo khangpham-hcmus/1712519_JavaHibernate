@@ -63,4 +63,14 @@ public class Semesters {
     public int hashCode() {
         return Objects.hash(semesterYear, semesterName, dayBegin, dayEnd);
     }
+
+    @Override
+    public String toString() {
+        return "Semesters{" +
+                "semesterYear='" + semesterYear + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                ", dayBegin='" + dayBegin + '\'' +
+                ", dayEnd='" + dayEnd + '\'' +
+                '}';
+    }
 }

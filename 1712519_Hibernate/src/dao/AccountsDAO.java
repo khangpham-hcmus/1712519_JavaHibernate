@@ -14,7 +14,7 @@ public class AccountsDAO {
         List<Accounts> listAccounts=null;
         try{
             //Query statement:
-            final String hbl="select ac from Accounts as ac";
+            final String hbl="select ac from Accounts as ac where ac.typeOfAccount=1";
             Query q=ss.createQuery(hbl);
             //Get result set:
             listAccounts=q.list();

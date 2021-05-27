@@ -54,4 +54,13 @@ public class Subjects {
     public int hashCode() {
         return Objects.hash(subjectId, subjectName, creditNumber);
     }
+
+    @Override
+    public String toString() {
+        return "Subjects{" +
+                "subjectId='" + subjectId + '\'' +
+                ", subjectName='" + subjectName + '\'' +
+                ", creditNumber=" + creditNumber +
+                '}';
+    }
 }
