@@ -4,18 +4,18 @@ import dao.*;
 import pojo.*;
 
 import java.util.List;
+import java.util.Optional;
+import swingUI.*;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-	// write your code here
-        try{
-            List<Studentscourses> rs=StudentsCoursesDAO.getAllStudentsCourses();
-            for(Studentscourses e:rs){
-                System.out.println(e.toString());
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new LoginSystem();
             }
-        }
-        catch (Exception e){
-            System.out.println("Exception in main: "+e.getMessage());
-        }
+        });
     }
 }
