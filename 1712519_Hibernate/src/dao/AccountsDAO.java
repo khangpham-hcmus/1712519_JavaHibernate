@@ -1,21 +1,19 @@
 package dao;
-
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import pojo.Accounts;
 import util.HibernateUtil;
-
 import java.util.List;
-
+//------------------------------------------------------------
 public class AccountsDAO {
     //get all Accounts
-    public static List<Accounts> getAllAccounts(){
+    private static List<Accounts> getAllAccounts(){
         //open session
         Session ss= HibernateUtil.getSessionFactory().openSession();
         List<Accounts> listAccounts=null;
         try{
             //Query statement:
-            final String hbl="select ac from Accounts as ac where ac.typeOfAccount=1";
+            final String hbl="select ac from Accounts as ac";
             Query q=ss.createQuery(hbl);
             //Get result set:
             listAccounts=q.list();
@@ -28,20 +26,21 @@ public class AccountsDAO {
         }
         return listAccounts;
     }
-
     //check Login
-    public static boolean Login(String _username_,String _password_,int _type_){
+    public static boolean Login(String _username_,String _password_,Integer _type_){
         boolean flag=false;
         Session ss=HibernateUtil.getSessionFactory().openSession();
-        List<Accounts> listAccountsLogin=null;
+        List<Accounts> listAccountsLogin=getAllAccounts();
         try{
-            String hbl="select a from Accounts as a where a.userName="+_username_+" and a.pass="+_password_+" and a.typeOfAccount="+_type_;
-            Query q=ss.createQuery(hbl);
-            listAccountsLogin=q.list();
-            if(listAccountsLogin.size()==0)
-                flag=false;
+            if(listAccountsLogin.size()!=0) {
+                for(Accounts e:listAccountsLogin){
+                    if(e.getTypeOfAccount()==_type_&&e.getUserName().equals(_username_)&&e.getPass().equals(_password_))
+                        return true;
+                }
+                return false;
+            }
             else{
-                flag=true;
+                return false;
             }
 
         }
