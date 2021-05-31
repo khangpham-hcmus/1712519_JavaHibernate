@@ -3,7 +3,6 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-
     <class name="pojo.Accounts" table="accounts" schema="dangkyhocphan">
         <id name="userName">
             <column name="UserName" sql-type="varchar(50)" length="50"/>
@@ -14,5 +13,17 @@
         <property name="typeOfAccount">
             <column name="TypeOfAccount" sql-type="int" not-null="true"/>
         </property>
+        <one-to-one
+                name="_student_"
+                class="pojo.Students"
+                property-ref="userName"
+                cascade="save-update,delete">
+        </one-to-one>
+        <one-to-one
+                name="_teachermanager_"
+                class="pojo.Teachermanagers"
+                property-ref="userName"
+                cascade="save-update,delete">
+        </one-to-one>
     </class>
 </hibernate-mapping>

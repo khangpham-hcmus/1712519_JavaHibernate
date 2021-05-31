@@ -3,7 +3,6 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-
     <class name="pojo.Students" table="students" schema="dangkyhocphan">
         <composite-id mapped="true" class="pojo.StudentsPK">
             <key-property name="studentId">
@@ -20,7 +19,15 @@
             <column name="Gender" sql-type="varchar(6)" length="6" not-null="true"/>
         </property>
         <property name="userName">
-            <column name="UserName" sql-type="varchar(50)" length="50" not-null="true"/>
+            <column name="UserName" sql-type="varchar(50)" length="50" not-null="true" unique="true"/>
         </property>
+        <many-to-one
+                class="pojo.Classes"
+                name="_class_"
+                fetch="join"
+                lazy="false"
+                cascade="save-update,delete" >
+            <column length="50" name="username" not-null="true"/>
+        </many-to-one>
     </class>
 </hibernate-mapping>

@@ -11,7 +11,24 @@ public class Accounts {
     private String userName;
     private String pass;
     private Integer typeOfAccount;
-
+    //----------------------------------------------
+    private Students _student_;
+    public Students get_student_() {
+        return _student_;
+    }
+    public void set_student_(Students _student_)
+    {
+        this._student_ = _student_;
+    }
+    //--------------------------------------------------------------------------
+    private Teachermanagers _teachermanager_;
+    public Teachermanagers get_teachermanager_() {
+        return _teachermanager_;
+    }
+    public void set_teachermanager_(Teachermanagers _teachermanager_) {
+        this._teachermanager_ = _teachermanager_;
+    }
+    //----------------------------------------------------
     @Id
     @Column(name = "UserName", nullable = false, length = 50)
     public String getUserName() {

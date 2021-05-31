@@ -11,6 +11,19 @@ public class Students {
     private String studentName;
     private String gender;
     private String userName;
+    //------------------------------
+    private Accounts _account_;
+    private Classes _class_;
+
+    public Classes get_class_() {
+        return _class_;
+    }
+
+    public void set_class_(Classes _class_) {
+        this._class_ = _class_;
+    }
+    //------------------------------
+
 
     @Id
     @Column(name = "StudentID", nullable = false, length = 10)

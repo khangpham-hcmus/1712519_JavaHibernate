@@ -5,11 +5,9 @@ import dao.AccountsDAO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
-
 public class LoginSystem implements ActionListener {
     //Attributes:-------------------------------------------------------
+    JFrame jframe=null;
     //Username:
     JPanel jpnusername=null;
     JLabel jlbusername=null;
@@ -32,7 +30,7 @@ public class LoginSystem implements ActionListener {
     //Methods:----------------------------------------------------------
     public LoginSystem(){
         //--------------------------------------------------------------
-        JFrame jframe=new JFrame("Login");
+        jframe=new JFrame("Login");
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setLayout(new GridLayout(5,1));
         jframe.setLocation(450, 100);
@@ -67,6 +65,7 @@ public class LoginSystem implements ActionListener {
         //teacher
         jrbteachermanager=new JRadioButton("TEACHERMANAGER");
         jrbteachermanager.setActionCommand("jrbteachermanager");
+        jrbteachermanager.setSelected(true);
         jrbteachermanager.addActionListener(this);
         //group 2 jradiobutton:
         btg=new ButtonGroup();
@@ -104,6 +103,7 @@ public class LoginSystem implements ActionListener {
 
     }
     private Integer _type_=0;
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         // TODO Auto-generated method stub
@@ -118,11 +118,13 @@ public class LoginSystem implements ActionListener {
         if(ae.getActionCommand().equals("jbtlogin")) {
             String _username_=jtfusername.getText();
             String  _password_=jtfpassword.getText();
-            boolean check=AccountsDAO.Login(_username_,_password_,_type_);
+            //boolean check=AccountsDAO.Login(_username_,_password_,_type_);
+            boolean check=true;
             String loginsuccess="Login success. ";
             String loginfailed="Login failed. Checked again!!!";
             if(check){
             jlbmessage.setText(loginsuccess);
+            //setVisible(false);
             }
             else {
                 jlbmessage.setText(loginfailed);
@@ -131,8 +133,13 @@ public class LoginSystem implements ActionListener {
         else
         {
             jlbmessage.setText("Input information in login the system!!!");
+
         }
     }
 
+    public void setVisible(boolean value)
+    {
+        jframe.setVisible(value);
+    }
 
 }

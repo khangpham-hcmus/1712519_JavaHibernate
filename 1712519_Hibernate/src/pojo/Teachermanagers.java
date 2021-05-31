@@ -11,6 +11,10 @@ public class Teachermanagers {
     private String teacherManagerId;
     private String teacherManagerName;
     private String userName;
+    //------------------------------------
+    private Accounts _account_;
+    public Accounts get_account_(){return _account_;}
+    public void set_account_(Accounts other){this._account_=other;}
 
     @Id
     @Column(name = "TeacherManagerID", nullable = false, length = 10)

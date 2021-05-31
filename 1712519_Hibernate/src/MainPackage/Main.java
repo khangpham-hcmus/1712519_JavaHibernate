@@ -11,11 +11,12 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new LoginSystem();
-            }
-        });
+        try {
+           System.out.println("hello");
+        }
+        catch (Exception e){
+            System.out.println("Exception in main: "+e);
+
+        }
     }
 }

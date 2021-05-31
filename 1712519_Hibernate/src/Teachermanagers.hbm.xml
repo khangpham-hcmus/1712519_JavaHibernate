@@ -7,6 +7,9 @@
     <class name="pojo.Teachermanagers" table="teachermanagers" schema="dangkyhocphan">
         <id name="teacherManagerId">
             <column name="TeacherManagerID" sql-type="varchar(10)" length="10"/>
+            <generator class="foreign">
+                <param name="property">_accounts_</param>
+            </generator>
         </id>
         <property name="teacherManagerName">
             <column name="TeacherManagerName" sql-type="varchar(50)" length="50" not-null="true"/>

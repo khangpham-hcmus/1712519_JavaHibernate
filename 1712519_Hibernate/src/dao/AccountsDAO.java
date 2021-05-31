@@ -3,9 +3,67 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import pojo.Accounts;
 import util.HibernateUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 //------------------------------------------------------------
 public class AccountsDAO {
+    //-------------------------------------------------------
+    private static List<Accounts> GET_LIST_ACCOUNTS_IN_SYSTEM(){
+        //
+        Session ss=HibernateUtil.getSessionFactory().openSession();
+        final String HQL="from Accounts";
+        List<Accounts> _list_=null;
+        try{
+            Query q=ss.createQuery(HQL);
+            _list_=q.list();
+        }
+        catch (Exception e){
+            System.out.println("Exception in AccountsDAO: "+e);
+        }
+        finally {
+            if(ss!=null){
+                ss.close();
+            }
+        }
+        return _list_;
+    }
+    //cau1: getInformation of account:
+    public static List<String> GET_INFORMATION_OF_ACCOUNT(String _username_){
+        List<String > info=null;
+        List<Accounts> _list_=null;
+        Session ss=HibernateUtil.getSessionFactory().openSession();
+        try{
+            final String HQL="select ac from Accounts as ac where ac.userName=:name";
+            System.out.println(HQL);
+            Query q=ss.createQuery(HQL);
+            q.setParameter("name",_username_);
+            //_list_=AccountsDAO.GET_LIST_ACCOUNTS_IN_SYSTEM();
+            _list_=q.list();
+            if(_list_.size()!=0)
+            {
+                info=new ArrayList<>();
+                info.add(_list_.get(0).getUserName());
+                info.add(_list_.get(0).getPass());
+                Integer type=_list_.get(0).getTypeOfAccount();
+                info.add(type.toString());
+            }
+        }
+        catch (Exception e){
+            System.out.println("Exception in AccountsDAO: "+e);
+        }
+        finally {
+            if(ss!=null){
+                ss.close();
+            }
+        }
+        return info;
+    }
+
+    //-----------------------------------------------------------------------------------------
+
+    //cau3: change the password:
+
     //get all Accounts
     private static List<Accounts> getAllAccounts(){
         //open session
