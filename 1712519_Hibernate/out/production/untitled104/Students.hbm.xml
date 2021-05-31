@@ -31,10 +31,5 @@
                 cascade="save-update,delete"
                 constrained="true">
         </one-to-one>
-
-        
-
-
-
     </class>
 </hibernate-mapping>

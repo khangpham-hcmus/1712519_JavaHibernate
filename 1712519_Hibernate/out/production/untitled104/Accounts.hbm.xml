@@ -8,7 +8,6 @@
             <column name="UserName" sql-type="varchar(50)" length="50"/>
             <generator class="assigned"></generator>
         </id>
-
         <property name="pass">
             <column name="Pass" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
