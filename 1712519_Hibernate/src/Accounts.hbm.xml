@@ -23,6 +23,7 @@
                 property-ref="userName"
                 cascade="save-update,delete">
         </one-to-one>
+
         <one-to-one
                 name="_teachermanager_"
                 class="pojo.Teachermanagers"

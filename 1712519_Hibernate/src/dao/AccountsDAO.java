@@ -2,8 +2,11 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import pojo.Accounts;
+import pojo.Students;
+import pojo.Teachermanagers;
 import util.HibernateUtil;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 //------------------------------------------------------------
@@ -58,6 +61,39 @@ public class AccountsDAO {
             }
         }
         return info;
+    }
+
+    //GET TEACHERMANAGER:
+    public static Accounts GET_INFORMATION_OF_ACCOUNT____(String username, Integer _type_){
+        Session ss=HibernateUtil.getSessionFactory().openSession();
+        Accounts ac=null;
+        try{
+            String hql="from Accounts ac where userName=:name and ac.typeOfAccount=: type";
+            Query q=ss.createQuery(hql);
+            q.setParameter("name",username);
+            q.setParameter("type" ,_type_) ;
+            List<Accounts> l=q.list();
+            System.out.println(l.get(0).toString());
+            if(_type_==2){
+                Students s=l.get(0).get_student_();
+                if(s==null){
+                    System.out.println("nullpointer");
+                }
+                else{
+                System.out.println(s.toString());
+                }
+            }
+
+        }
+        catch (Exception e){
+
+        }
+        finally {
+            if(ss!=null){
+                ss.close();
+            }
+        }
+        return ac;
     }
 
     //-----------------------------------------------------------------------------------------

@@ -3,13 +3,9 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-
     <class name="pojo.Teachermanagers" table="teachermanagers" schema="dangkyhocphan">
         <id name="teacherManagerId">
             <column name="TeacherManagerID" sql-type="varchar(10)" length="10"/>
-            <generator class="foreign">
-                <param name="property">_accounts_</param>
-            </generator>
         </id>
         <property name="teacherManagerName">
             <column name="TeacherManagerName" sql-type="varchar(50)" length="50" not-null="true"/>
@@ -17,5 +13,11 @@
         <property name="userName">
             <column name="UserName" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
+        <one-to-one
+                name="_account_"
+                class="pojo.Teachermanagers"
+                cascade="save-update,delete"
+                constrained="true">
+        </one-to-one>
     </class>
 </hibernate-mapping>

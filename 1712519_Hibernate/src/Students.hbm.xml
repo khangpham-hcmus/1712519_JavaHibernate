@@ -12,22 +12,24 @@
                 <column name="ClassID" sql-type="varchar(10)" length="10"/>
             </key-property>
         </composite-id>
+
         <property name="studentName">
             <column name="StudentName" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
+
         <property name="gender">
             <column name="Gender" sql-type="varchar(6)" length="6" not-null="true"/>
         </property>
+
         <property name="userName">
             <column name="UserName" sql-type="varchar(50)" length="50" not-null="true" unique="true"/>
         </property>
-        <many-to-one
-                class="pojo.Classes"
-                name="_class_"
-                fetch="join"
-                lazy="false"
-                cascade="save-update,delete" >
-            <column length="50" name="username" not-null="true"/>
-        </many-to-one>
+
+        <one-to-one
+                name="_account_"
+                class="pojo.Students"
+                cascade="save-update,delete"
+                constrained="true">
+        </one-to-one>
     </class>
 </hibernate-mapping>

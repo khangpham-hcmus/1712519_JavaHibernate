@@ -12,9 +12,13 @@ public class Teachermanagers {
     private String teacherManagerName;
     private String userName;
     //------------------------------------
-    private Accounts _account_;
-    public Accounts get_account_(){return _account_;}
-    public void set_account_(Accounts other){this._account_=other;}
+    private Teachermanagers _account_;
+    public Teachermanagers get_account_() {
+        return _account_;
+    }
+    public void set_account_(Teachermanagers _account_) {
+        this._account_ = _account_;
+    }
 
     @Id
     @Column(name = "TeacherManagerID", nullable = false, length = 10)

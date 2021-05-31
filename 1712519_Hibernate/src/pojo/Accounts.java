@@ -16,9 +16,9 @@ public class Accounts {
     public Students get_student_() {
         return _student_;
     }
-    public void set_student_(Students _student_)
+    public void set_student_(Students _student__)
     {
-        this._student_ = _student_;
+        this._student_ = _student__;
     }
     //--------------------------------------------------------------------------
     private Teachermanagers _teachermanager_;

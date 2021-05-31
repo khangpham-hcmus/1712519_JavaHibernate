@@ -12,7 +12,8 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         try {
-           System.out.println("hello");
+
+            AccountsDAO.GET_INFORMATION_OF_ACCOUNT____("1712519",2);
         }
         catch (Exception e){
             System.out.println("Exception in main: "+e);

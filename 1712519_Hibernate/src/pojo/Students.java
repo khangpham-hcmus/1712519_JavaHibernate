@@ -12,7 +12,14 @@ public class Students {
     private String gender;
     private String userName;
     //------------------------------
-    private Accounts _account_;
+    private Students _account_;
+    public Students get_account_() {
+        return _account_;
+    }
+    public void set_account_(Students _otherAccount__) {
+        this._account_ = _otherAccount__;
+    }
+
     private Classes _class_;
 
     public Classes get_class_() {

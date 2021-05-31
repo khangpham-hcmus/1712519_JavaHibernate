@@ -6,19 +6,24 @@
     <class name="pojo.Accounts" table="accounts" schema="dangkyhocphan">
         <id name="userName">
             <column name="UserName" sql-type="varchar(50)" length="50"/>
+            <generator class="assigned"></generator>
         </id>
+
         <property name="pass">
             <column name="Pass" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
+
         <property name="typeOfAccount">
             <column name="TypeOfAccount" sql-type="int" not-null="true"/>
         </property>
+
         <one-to-one
                 name="_student_"
                 class="pojo.Students"
                 property-ref="userName"
                 cascade="save-update,delete">
         </one-to-one>
+
         <one-to-one
                 name="_teachermanager_"
                 class="pojo.Teachermanagers"
