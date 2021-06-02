@@ -1,4 +1,5 @@
 package dao;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -6,63 +7,78 @@ import pojo.Accounts;
 import pojo.Students;
 import pojo.Teachermanagers;
 import util.HibernateUtil;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 //------------------------------------------------------------
 public class AccountsDAO {
     //-------------------------------------------------------
-
     //GET_ACCOUNT_THROUGH_USERNAME_TYPE
-    public static Accounts GET_ACCOUNT_THROUGH_USERNAME_TYPE(String _username_,Integer _TypeOfAccount_){
-        Accounts ac=null;
-        Session ss=HibernateUtil.getSessionFactory().openSession();
-        try{
-            String hql="from Accounts as ac where ac.userName=:name and ac.typeOfAccount=:type";
-            Query q=ss.createQuery(hql);
-            q.setParameter("name",_username_);
-            q.setParameter("type",_TypeOfAccount_);
-            ac= (Accounts) q.list().get(0);
-        }catch (Exception exc){
-            System.out.println("Exception in AccountsDAO: "+exc.getMessage());
-        }
-        finally {
-            if(ss!=null){
-                ss.close();
-            }
-        }
-        return ac;
+    public static Accounts GET_ACCOUNT_THROUGH_USERNAME_TYPE(String _username_,Integer typeofAccount) {
+         Session session=HibernateUtil.getSessionFactory().openSession();
+         Accounts _account_=null;
+         try{
+             _account_=session.load(Accounts.class,_username_);
+             if(typeofAccount==1){
+                 Hibernate.initialize((Teachermanagers)_account_.get_teachermanager_());
+             }
+             else if(typeofAccount==2){
+                 Hibernate.initialize((Students)_account_.get_student_());
+             }
+         }
+         catch (Exception exception){
+             System.out.println("Exception in AccountDAO: "+exception.getMessage());
+         }
+         finally {
+             if(session!=null)
+                 session.close();
+         }
+         return  _account_;
     }
     //UPDATE_PASSWORD:
-    public static boolean UPDATE_PASSWORD(String _username_,String newpass){
-        Session ss=HibernateUtil.getSessionFactory().openSession();
-        boolean checkupdate=false;
-        Transaction tx=null;
+    public static boolean UPDATE_PASSWORD(String _username_,String _newPassword_){
+       Session session=HibernateUtil.getSessionFactory().openSession();
+       Transaction transaction=null;
+       boolean checkUpdate=false;
+       try{
+           transaction=session.beginTransaction();
+           Accounts _account_=session.load(Accounts.class,_username_);
+           _account_.setPass(_newPassword_);
+           transaction.commit();
+       }
+       catch (Exception exception)
+       {
+           transaction.rollback();
+           checkUpdate=false;
+           System.out.println("Exception in AccountDAO: "+exception.getMessage());
+       }
+       finally
+       {
+
+       }
+
+
+       return checkUpdate;
+    }
+    //RESET_PASSWORD:
+    public static boolean RESET_PASSWORD(String _username_, Integer _typeofAccount_){
+        boolean checkReset=false;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=null;
         try{
-            tx=ss.beginTransaction();
-            String hql="update Accounts set Pass=:passnew where UserName=:username ";
-            Query q=ss.createSQLQuery(hql);
-            q.setParameter("passnew",newpass);
-            q.setParameter("username",_username_);
-            Integer i=q.executeUpdate();
-            tx.commit();
-            if(i!=0)
-                checkupdate=true;
-            else
-                checkupdate=false;
-            System.out.println(checkupdate);
+            transaction=session.beginTransaction();
+            Accounts _account_=session.load(Accounts.class,_username_);
+            _account_.setPass(_username_);
+            transaction.commit();
         }
-        catch (Exception e){
-            System.out.println("Exception in AccountsDAO: "+e.getMessage());
+        catch (Exception exception){
+            transaction.rollback();
+            System.out.println("Exception in AccountsDAO: "+exception.getMessage());
         }
         finally {
-            if(ss!=null)
-                ss.close();
+            if(session!=null)
+                session.close();
         }
-        return checkupdate;
+        return checkReset;
     }
-
     //check Login
     public static boolean Login(String _username_,String _password_,Integer _type_){
         boolean flag=false;
@@ -83,8 +99,41 @@ public class AccountsDAO {
         }
         catch (Exception e){
             System.out.println("Can not login! "+e.getMessage());
-         }
+        }
 
         return flag;
     }
+    //UPDATE_INFORMATION:
+    public static boolean UPDATE_INFORMATION_FOR_ACCOUNT(String _username_,Integer _type_,String _newName_){
+       boolean checkUPDATE=false;
+       Session session=HibernateUtil.getSessionFactory().openSession();
+       Transaction transaction=null;
+       Accounts _account_=null;
+       Teachermanagers _teacheraccount_=null;
+       Students _studentaccount_=null;
+       try{
+           transaction=session.beginTransaction();
+           _account_=session.load(Accounts.class,_username_);
+           if(_type_==1){
+               _teacheraccount_=_account_.get_teachermanager_();
+               _teacheraccount_.setTeacherManagerName(_newName_);
+           }
+           else if(_type_==2){
+               _studentaccount_=_account_.get_student_();
+               _studentaccount_.setStudentName(_newName_);
+           }
+           transaction.commit();
+       }
+       catch (Exception e){
+           checkUPDATE=false;
+           transaction.rollback();
+           System.out.println("Exception in AccountDAO: "+e.getMessage());
+       }
+       finally {
+           if(session!=null)
+               session.close();
+       }
+       return checkUPDATE;
+    }
+
 }

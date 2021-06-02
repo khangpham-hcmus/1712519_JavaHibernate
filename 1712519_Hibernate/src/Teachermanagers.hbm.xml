@@ -17,6 +17,8 @@
                 name="_account_"
                 class="pojo.Teachermanagers"
                 cascade="save-update,delete"
+                fetch="join"
+                lazy="false"
                 constrained="true">
         </one-to-one>
     </class>

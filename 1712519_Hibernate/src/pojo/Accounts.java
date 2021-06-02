@@ -13,6 +13,20 @@ public class Accounts {
     private Integer typeOfAccount;
     //----------------------------------------------
     private Students _student_;
+
+    public Accounts(String userName__, String password__, int type__) {
+        this.userName=userName__;
+        this.pass=password__;
+        this.typeOfAccount=type__;
+    }
+
+    public Accounts() {
+        userName="";
+        pass="";
+        typeOfAccount=1;
+    }
+
+
     public Students get_student_() {
         return _student_;
     }

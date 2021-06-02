@@ -20,6 +20,8 @@
                 name="_student_"
                 class="pojo.Students"
                 property-ref="userName"
+                lazy="false"
+                fetch="join"
                 cascade="save-update,delete">
         </one-to-one>
 
@@ -27,6 +29,7 @@
                 name="_teachermanager_"
                 class="pojo.Teachermanagers"
                 property-ref="userName"
+
                 cascade="save-update,delete">
         </one-to-one>
     </class>

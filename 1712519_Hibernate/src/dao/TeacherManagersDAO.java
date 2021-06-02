@@ -1,27 +1,51 @@
 package dao;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import pojo.Accounts;
 import pojo.Teachermanagers;
 import util.HibernateUtil;
-
 import java.util.List;
 
 public class TeacherManagersDAO {
-    public static List<Teachermanagers> getAllTeacherManagers(){
-        Session ss= HibernateUtil.getSessionFactory().openSession();
-        List<Teachermanagers> listTeacherManagers=null;
+    //GET_LIST_ALL_TEACHERMANAGERS:
+    public static List<Teachermanagers> GET_LIST_TEACHERMANAGERS(){
+        List<Teachermanagers> LIST_TEACHERMANAGERS=null;
+        Session ss=HibernateUtil.getSessionFactory().openSession();
         try{
-            String hql="select tc from Teachermanagers as tc";
+            String hql="from Teachermanagers as tc";
             Query q=ss.createQuery(hql);
-            listTeacherManagers=q.list();
+            LIST_TEACHERMANAGERS=q.list();
         }
         catch (Exception e){
-            System.out.println("Exception in TeacherManagerDAO: "+e.getMessage());
+            System.out.println("Exception in TEACHERMANAGERSDAO: "+e.getMessage());
         }
         finally {
-            ss.close();
+            if(ss!=null){
+                ss.close();
+            }
         }
-        return listTeacherManagers;
+        return LIST_TEACHERMANAGERS;
+    }
+    //SEARCH INFORMATION OF TEACHERMANAGER:
+    public static Teachermanagers SEARCH_INFORMATION(String _username_){
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Teachermanagers _teachermanagerAccount_=null;
+        try{
+            String hql="from Teachermanagers as t where  t.userName=:name";
+            Query q=session.createQuery(hql);
+            q.setParameter("name",_username_);
+            _teachermanagerAccount_=(Teachermanagers) q.list().get(0);
+        }
+        catch (Exception e){
+            System.out.println("Exception in TeachermanagerDAO: "+e.getMessage());
+        }
+        finally {
+            if(session!=null)
+                session.close();
+        }
+        return _teachermanagerAccount_;
     }
 }
