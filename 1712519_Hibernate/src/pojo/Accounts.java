@@ -25,8 +25,6 @@ public class Accounts {
         pass="";
         typeOfAccount=1;
     }
-
-
     public Students get_student_() {
         return _student_;
     }

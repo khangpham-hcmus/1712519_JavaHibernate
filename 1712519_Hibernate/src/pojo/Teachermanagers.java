@@ -19,6 +19,18 @@ public class Teachermanagers {
     public void set_account_(Teachermanagers _account_) {
         this._account_ = _account_;
     }
+    //full constructor:
+    public Teachermanagers(String ID,String name,String usName)
+    {
+        this.teacherManagerId=ID;
+        this.teacherManagerName=name;
+        this.userName=usName;
+    }
+    //default constructor:
+    public Teachermanagers(){
+        this.teacherManagerId="";
+        this.teacherManagerName="";
+    }
 
     @Id
     @Column(name = "TeacherManagerID", nullable = false, length = 10)

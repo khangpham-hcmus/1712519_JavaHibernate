@@ -12,6 +12,18 @@ public class Subjects {
     private String subjectName;
     private Integer creditNumber;
 
+    public Subjects()
+    {
+        this.subjectId="";
+        this.subjectName="";
+        this.creditNumber=0;
+    }
+    public Subjects(String subjectId__,String subjectName__,Integer creditNumber__)
+    {
+        this.subjectId=subjectId__;
+        this.subjectName=subjectName__;
+        this.creditNumber=creditNumber__;
+    }
     @Id
     @Column(name = "SubjectId", nullable = false, length = 10)
     public String getSubjectId() {

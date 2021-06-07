@@ -16,8 +16,8 @@ public class Main {
     public static void main(String[] args) {
         try
         {
-            Teachermanagers teachermanagers=TeacherManagersDAO.SEARCH_INFORMATION("giaovux");
-            System.out.println(teachermanagers.toString());
+           boolean b =SubjectsDAO.UpdateSubject("abcd","nhap mon lap trinh");
+           System.out.println(b);
         }
         catch (Exception e){
             System.out.println("Exception in main: "+e);
