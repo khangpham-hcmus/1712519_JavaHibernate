@@ -6,57 +6,36 @@ import java.util.Objects;
 @Entity
 @IdClass(CoursesPK.class)
 public class Courses {
-    private String semesterYear;
-    private String semesterName;
-    private String subjectId;
-    private String classId;
+    //----------------------------
     private String theoryTeacher;
     private String dayOfWeek;
     private Integer shift;
     private Integer maxSlot;
-
-    @Id
-    @Column(name = "SemesterYear", nullable = false, length = 4)
-    public String getSemesterYear() {
-        return semesterYear;
+    private CoursesPK CoursePK;
+    //-----------------------------------------
+    private Subjects subject;
+    public Subjects getSubject() {
+        return subject;
     }
-
-    public void setSemesterYear(String semesterYear) {
-        this.semesterYear = semesterYear;
+    public void setSubject(Subjects subject) {
+        this.subject = subject;
     }
+    //----------------------------------------------
+    //---constructor:
 
-    @Id
-    @Column(name = "SemesterName", nullable = false, length = 3)
-    public String getSemesterName() {
-        return semesterName;
+    public Courses(String theoryTeacher, String dayOfWeek, Integer shift, Integer maxSlot, CoursesPK coursePK) {
+        this.theoryTeacher = theoryTeacher;
+        this.dayOfWeek = dayOfWeek;
+        this.shift = shift;
+        this.maxSlot = maxSlot;
+        CoursePK = coursePK;
     }
+    public Courses()
+    {
 
-    public void setSemesterName(String semesterName) {
-        this.semesterName = semesterName;
     }
+    //--getter setter
 
-    @Id
-    @Column(name = "SubjectID", nullable = false, length = 10)
-    public String getSubjectId() {
-        return subjectId;
-    }
-
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    @Id
-    @Column(name = "ClassID", nullable = false, length = 10)
-    public String getClassId() {
-        return classId;
-    }
-
-    public void setClassId(String classId) {
-        this.classId = classId;
-    }
-
-    @Basic
-    @Column(name = "TheoryTeacher", nullable = true, length = 50)
     public String getTheoryTeacher() {
         return theoryTeacher;
     }
@@ -65,8 +44,6 @@ public class Courses {
         this.theoryTeacher = theoryTeacher;
     }
 
-    @Basic
-    @Column(name = "DayOfWeek", nullable = true, length = 10)
     public String getDayOfWeek() {
         return dayOfWeek;
     }
@@ -75,8 +52,6 @@ public class Courses {
         this.dayOfWeek = dayOfWeek;
     }
 
-    @Basic
-    @Column(name = "Shift", nullable = true)
     public Integer getShift() {
         return shift;
     }
@@ -85,8 +60,6 @@ public class Courses {
         this.shift = shift;
     }
 
-    @Basic
-    @Column(name = "MaxSlot", nullable = true)
     public Integer getMaxSlot() {
         return maxSlot;
     }
@@ -95,30 +68,35 @@ public class Courses {
         this.maxSlot = maxSlot;
     }
 
+    public CoursesPK getCoursePK() {
+        return CoursePK;
+    }
+
+    public void setCoursePK(CoursesPK coursePK) {
+        CoursePK = coursePK;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Courses)) return false;
         Courses courses = (Courses) o;
-        return Objects.equals(semesterYear, courses.semesterYear) && Objects.equals(semesterName, courses.semesterName) && Objects.equals(subjectId, courses.subjectId) && Objects.equals(classId, courses.classId) && Objects.equals(theoryTeacher, courses.theoryTeacher) && Objects.equals(dayOfWeek, courses.dayOfWeek) && Objects.equals(shift, courses.shift) && Objects.equals(maxSlot, courses.maxSlot);
+        return Objects.equals(getTheoryTeacher(), courses.getTheoryTeacher()) && Objects.equals(getDayOfWeek(), courses.getDayOfWeek()) && Objects.equals(getShift(), courses.getShift()) && Objects.equals(getMaxSlot(), courses.getMaxSlot()) && Objects.equals(getCoursePK(), courses.getCoursePK());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(semesterYear, semesterName, subjectId, classId, theoryTeacher, dayOfWeek, shift, maxSlot);
+        return Objects.hash(getTheoryTeacher(), getDayOfWeek(), getShift(), getMaxSlot(), getCoursePK());
     }
 
     @Override
     public String toString() {
         return "Courses{" +
-                "semesterYear='" + semesterYear + '\'' +
-                ", semesterName='" + semesterName + '\'' +
-                ", subjectId='" + subjectId + '\'' +
-                ", classId='" + classId + '\'' +
-                ", theoryTeacher='" + theoryTeacher + '\'' +
+                "theoryTeacher='" + theoryTeacher + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", shift=" + shift +
                 ", maxSlot=" + maxSlot +
+                ", CoursePK=" + CoursePK +
                 '}';
     }
 }

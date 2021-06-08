@@ -1,38 +1,35 @@
 package pojo;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @IdClass(SemestersPK.class)
 public class Semesters {
-    private String semesterYear;
-    private String semesterName;
+    SemestersPK semestersPrimarykey;
     private String dayBegin;
     private String dayEnd;
 
-    @Id
-    @Column(name = "SemesterYear", nullable = false, length = 4)
-    public String getSemesterYear() {
-        return semesterYear;
+
+    public Semesters() {
     }
 
-    public void setSemesterYear(String semesterYear) {
-        this.semesterYear = semesterYear;
+    public Semesters(SemestersPK semestersPrimarykey, String dayBegin, String dayEnd) {
+        this.semestersPrimarykey = semestersPrimarykey;
+        this.dayBegin = dayBegin;
+        this.dayEnd = dayEnd;
     }
 
-    @Id
-    @Column(name = "SemesterName", nullable = false, length = 3)
-    public String getSemesterName() {
-        return semesterName;
+    public SemestersPK getSemestersPrimarykey() {
+        return semestersPrimarykey;
     }
 
-    public void setSemesterName(String semesterName) {
-        this.semesterName = semesterName;
+    public void setSemestersPrimarykey(SemestersPK semestersPrimarykey) {
+        this.semestersPrimarykey = semestersPrimarykey;
     }
 
-    @Basic
-    @Column(name = "DayBegin", nullable = true, length = 10)
     public String getDayBegin() {
         return dayBegin;
     }
@@ -41,8 +38,6 @@ public class Semesters {
         this.dayBegin = dayBegin;
     }
 
-    @Basic
-    @Column(name = "DayEnd", nullable = true, length = 10)
     public String getDayEnd() {
         return dayEnd;
     }
@@ -54,21 +49,20 @@ public class Semesters {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Semesters)) return false;
         Semesters semesters = (Semesters) o;
-        return Objects.equals(semesterYear, semesters.semesterYear) && Objects.equals(semesterName, semesters.semesterName) && Objects.equals(dayBegin, semesters.dayBegin) && Objects.equals(dayEnd, semesters.dayEnd);
+        return Objects.equals(getSemestersPrimarykey(), semesters.getSemestersPrimarykey()) && Objects.equals(getDayBegin(), semesters.getDayBegin()) && Objects.equals(getDayEnd(), semesters.getDayEnd());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(semesterYear, semesterName, dayBegin, dayEnd);
+        return Objects.hash(getSemestersPrimarykey(), getDayBegin(), getDayEnd());
     }
 
     @Override
     public String toString() {
         return "Semesters{" +
-                "semesterYear='" + semesterYear + '\'' +
-                ", semesterName='" + semesterName + '\'' +
+                "semestersPrimarykey=" + semestersPrimarykey +
                 ", dayBegin='" + dayBegin + '\'' +
                 ", dayEnd='" + dayEnd + '\'' +
                 '}';

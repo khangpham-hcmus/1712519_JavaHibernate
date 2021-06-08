@@ -4,19 +4,22 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="pojo.Semesters" table="semesters" schema="dangkyhocphan">
-        <composite-id mapped="true" class="pojo.SemestersPK">
-            <key-property name="semesterYear">
-                <column name="SemesterYear" sql-type="varchar(4)" length="4"/>
-            </key-property>
-            <key-property name="semesterName">
-                <column name="SemesterName" sql-type="varchar(3)" length="3"/>
+
+        <composite-id name="semestersPrimarykey" class="pojo.SemestersPK">
+            <key-property name="semesterYear" column="SemesterYear" length="4"
+                          type="string"/>
+            <key-property name="semesterName" column="SemesterName" length="3"
+                          type="string">
             </key-property>
         </composite-id>
+
         <property name="dayBegin">
             <column name="DayBegin" sql-type="varchar(10)" length="10" not-null="true"/>
         </property>
+
         <property name="dayEnd">
             <column name="DayEnd" sql-type="varchar(10)" length="10" not-null="true"/>
         </property>
+
     </class>
 </hibernate-mapping>

@@ -4,28 +4,36 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Subjects {
     private String subjectId;
     private String subjectName;
     private Integer creditNumber;
+    //---------------------------------------
+    private Set<Courses> courses=new HashSet<Courses>(0);
 
-    public Subjects()
-    {
-        this.subjectId="";
-        this.subjectName="";
-        this.creditNumber=0;
+    public Set<Courses> getCourses() {
+        return courses;
     }
-    public Subjects(String subjectId__,String subjectName__,Integer creditNumber__)
-    {
-        this.subjectId=subjectId__;
-        this.subjectName=subjectName__;
-        this.creditNumber=creditNumber__;
+
+    public void setCourses(Set<Courses> courses) {
+        this.courses = courses;
     }
-    @Id
-    @Column(name = "SubjectId", nullable = false, length = 10)
+
+    //-------------------------------------------
+    public Subjects(String subjectId, String subjectName, Integer creditNumber) {
+        this.subjectId = subjectId;
+        this.subjectName = subjectName;
+        this.creditNumber = creditNumber;
+    }
+
+    public Subjects() {
+    }
+
     public String getSubjectId() {
         return subjectId;
     }
@@ -34,8 +42,6 @@ public class Subjects {
         this.subjectId = subjectId;
     }
 
-    @Basic
-    @Column(name = "SubjectName", nullable = true, length = 50)
     public String getSubjectName() {
         return subjectName;
     }
@@ -44,8 +50,6 @@ public class Subjects {
         this.subjectName = subjectName;
     }
 
-    @Basic
-    @Column(name = "CreditNumber", nullable = true)
     public Integer getCreditNumber() {
         return creditNumber;
     }
@@ -57,14 +61,14 @@ public class Subjects {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Subjects)) return false;
         Subjects subjects = (Subjects) o;
-        return Objects.equals(subjectId, subjects.subjectId) && Objects.equals(subjectName, subjects.subjectName) && Objects.equals(creditNumber, subjects.creditNumber);
+        return Objects.equals(getSubjectId(), subjects.getSubjectId()) && Objects.equals(getSubjectName(), subjects.getSubjectName()) && Objects.equals(getCreditNumber(), subjects.getCreditNumber());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subjectId, subjectName, creditNumber);
+        return Objects.hash(getSubjectId(), getSubjectName(), getCreditNumber());
     }
 
     @Override
@@ -76,3 +80,4 @@ public class Subjects {
                 '}';
     }
 }
+

@@ -10,8 +10,8 @@ import util.HibernateUtil;
 import java.util.List;
 
 public class TeacherManagersDAO {
-    //GET_LIST_ALL_TEACHERMANAGERS:
-    public static List<Teachermanagers> GET_LIST_TEACHERMANAGERS(){
+    public static List<Teachermanagers> GetListTeachermanager()
+    {
         List<Teachermanagers> LIST_TEACHERMANAGERS=null;
         Session ss=HibernateUtil.getSessionFactory().openSession();
         try{
@@ -20,7 +20,7 @@ public class TeacherManagersDAO {
             LIST_TEACHERMANAGERS=q.list();
         }
         catch (Exception e){
-            System.out.println("Exception in TEACHERMANAGERSDAO: "+e.getMessage());
+            LIST_TEACHERMANAGERS=null;
         }
         finally {
             if(ss!=null){
@@ -29,23 +29,14 @@ public class TeacherManagersDAO {
         }
         return LIST_TEACHERMANAGERS;
     }
-    //SEARCH INFORMATION OF TEACHERMANAGER:
-    public static Teachermanagers SEARCH_INFORMATION(String _username_){
-        Session session=HibernateUtil.getSessionFactory().openSession();
-        Teachermanagers _teachermanagerAccount_=null;
-        try{
-            String hql="from Teachermanagers as t where  t.userName=:name";
-            Query q=session.createQuery(hql);
-            q.setParameter("name",_username_);
-            _teachermanagerAccount_=(Teachermanagers) q.list().get(0);
-        }
-        catch (Exception e){
-            System.out.println("Exception in TeachermanagerDAO: "+e.getMessage());
-        }
-        finally {
-            if(session!=null)
-                session.close();
-        }
-        return _teachermanagerAccount_;
+    public static String GetInformationTeachermanager(String username)
+    {
+        String thongtin=null;
+        Accounts ac=AccountsDAO.GetAccount(username);
+        if(ac!=null&&ac.getTypeOfAccount()==1)
+            thongtin=ac.toString();
+        return thongtin;
     }
+
+
 }

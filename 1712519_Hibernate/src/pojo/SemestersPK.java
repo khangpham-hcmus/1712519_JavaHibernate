@@ -9,8 +9,14 @@ public class SemestersPK implements Serializable {
     private String semesterYear;
     private String semesterName;
 
-    @Column(name = "SemesterYear", nullable = false, length = 4)
-    @Id
+    public SemestersPK(String semesterYear, String semesterName) {
+        this.semesterYear = semesterYear;
+        this.semesterName = semesterName;
+    }
+
+    public SemestersPK() {
+    }
+
     public String getSemesterYear() {
         return semesterYear;
     }
@@ -19,8 +25,19 @@ public class SemestersPK implements Serializable {
         this.semesterYear = semesterYear;
     }
 
-    @Column(name = "SemesterName", nullable = false, length = 3)
-    @Id
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SemestersPK)) return false;
+        SemestersPK that = (SemestersPK) o;
+        return Objects.equals(getSemesterYear(), that.getSemesterYear()) && Objects.equals(getSemesterName(), that.getSemesterName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSemesterYear(), getSemesterName());
+    }
+
     public String getSemesterName() {
         return semesterName;
     }
@@ -30,15 +47,10 @@ public class SemestersPK implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SemestersPK that = (SemestersPK) o;
-        return Objects.equals(semesterYear, that.semesterYear) && Objects.equals(semesterName, that.semesterName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(semesterYear, semesterName);
+    public String toString() {
+        return "SemestersPK{" +
+                "semesterYear='" + semesterYear + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                '}';
     }
 }

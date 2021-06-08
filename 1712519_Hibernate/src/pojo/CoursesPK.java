@@ -11,42 +11,27 @@ public class CoursesPK implements Serializable {
     private String subjectId;
     private String classId;
 
-    @Column(name = "SemesterYear", nullable = false, length = 4)
-    @Id
     public String getSemesterYear() {
         return semesterYear;
     }
-
     public void setSemesterYear(String semesterYear) {
         this.semesterYear = semesterYear;
     }
-
-    @Column(name = "SemesterName", nullable = false, length = 3)
-    @Id
     public String getSemesterName() {
         return semesterName;
     }
-
     public void setSemesterName(String semesterName) {
         this.semesterName = semesterName;
     }
-
-    @Column(name = "SubjectID", nullable = false, length = 10)
-    @Id
     public String getSubjectId() {
         return subjectId;
     }
-
     public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
     }
-
-    @Column(name = "ClassID", nullable = false, length = 10)
-    @Id
     public String getClassId() {
         return classId;
     }
-
     public void setClassId(String classId) {
         this.classId = classId;
     }
@@ -62,5 +47,15 @@ public class CoursesPK implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(semesterYear, semesterName, subjectId, classId);
+    }
+
+    @Override
+    public String toString() {
+        return
+                "semesterYear='" + semesterYear + '\'' +
+                ", semesterName='" + semesterName + '\'' +
+                ", subjectId='" + subjectId + '\'' +
+                ", classId='" + classId + '\'' +
+                '}';
     }
 }

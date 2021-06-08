@@ -10,30 +10,27 @@ import java.util.Objects;
 public class Teachermanagers {
     private String teacherManagerId;
     private String teacherManagerName;
-    private String userName;
-    //------------------------------------
-    private Teachermanagers _account_;
-    public Teachermanagers get_account_() {
-        return _account_;
-    }
-    public void set_account_(Teachermanagers _account_) {
-        this._account_ = _account_;
-    }
-    //full constructor:
-    public Teachermanagers(String ID,String name,String usName)
-    {
-        this.teacherManagerId=ID;
-        this.teacherManagerName=name;
-        this.userName=usName;
-    }
-    //default constructor:
-    public Teachermanagers(){
-        this.teacherManagerId="";
-        this.teacherManagerName="";
+    private Accounts account;
+    //---------------------------------------------
+
+    public Accounts getAccount() {
+        return account;
     }
 
-    @Id
-    @Column(name = "TeacherManagerID", nullable = false, length = 10)
+    public void setAccount(Accounts account) {
+        this.account = account;
+    }
+
+
+    //--------------------------------------------
+
+    public Teachermanagers(String teacherManagerId, String teacherManagerName) {
+        this.teacherManagerId = teacherManagerId;
+        this.teacherManagerName = teacherManagerName;
+    }
+    public Teachermanagers(){}
+
+    //--------------------------------------------
     public String getTeacherManagerId() {
         return teacherManagerId;
     }
@@ -42,8 +39,6 @@ public class Teachermanagers {
         this.teacherManagerId = teacherManagerId;
     }
 
-    @Basic
-    @Column(name = "TeacherManagerName", nullable = true, length = 50)
     public String getTeacherManagerName() {
         return teacherManagerName;
     }
@@ -52,35 +47,24 @@ public class Teachermanagers {
         this.teacherManagerName = teacherManagerName;
     }
 
-    @Basic
-    @Column(name = "UserName", nullable = true, length = 50)
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    @Override
+    public String toString() {
+        return "Teachermanagers{" +
+                "teacherManagerId='" + teacherManagerId + '\'' +
+                ", teacherManagerName='" + teacherManagerName +
+                '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Teachermanagers)) return false;
         Teachermanagers that = (Teachermanagers) o;
-        return Objects.equals(teacherManagerId, that.teacherManagerId) && Objects.equals(teacherManagerName, that.teacherManagerName) && Objects.equals(userName, that.userName);
+        return Objects.equals(getTeacherManagerId(), that.getTeacherManagerId()) && Objects.equals(getTeacherManagerName(), that.getTeacherManagerName()) && Objects.equals(getAccount(), that.getAccount());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(teacherManagerId, teacherManagerName, userName);
-    }
-
-    @Override
-    public String toString() {
-        return "Teachermanagers{" +
-                "teacherManagerId='" + teacherManagerId + '\'' +
-                ", teacherManagerName='" + teacherManagerName + '\'' +
-                ", userName='" + userName + '\'' +
-                '}';
+        return Objects.hash(getTeacherManagerId(), getTeacherManagerName(), getAccount());
     }
 }

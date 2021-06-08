@@ -4,34 +4,28 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="pojo.Students" table="students" schema="dangkyhocphan">
-        <composite-id mapped="true" class="pojo.StudentsPK">
-            <key-property name="studentId">
-                <column name="StudentID" sql-type="varchar(10)" length="10"/>
-            </key-property>
-            <key-property name="classId">
-                <column name="ClassID" sql-type="varchar(10)" length="10"/>
-            </key-property>
-        </composite-id>
 
+        <composite-id name="studentsPK" class="pojo.StudentsPK">
+            <key-property name="studentId" column="StudentID" length="10"
+                          type="string" />
+            <key-property name="classId" column="ClassID"
+                          length="10" type="string" />
+        </composite-id>
+        <!--==========================================-->
         <property name="studentName">
             <column name="StudentName" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
-
+        <!--==========================================-->
         <property name="gender">
             <column name="Gender" sql-type="varchar(6)" length="6" not-null="true"/>
         </property>
-
-        <property name="userName">
-            <column name="UserName" sql-type="varchar(50)" length="50" not-null="true" unique="true"/>
-        </property>
-
-        <one-to-one
-                name="_account_"
-                class="pojo.Students"
-                cascade="save-update,delete"
-                fetch="join"
-                lazy="false"
-                constrained="true">
-        </one-to-one>
+        <!--==========================================-->
+        <many-to-one name="account" class="pojo.Accounts"
+                     fetch="join" lazy="false"
+                     cascade="save-update,delete"
+                     >
+            <column name="UserName"  length="50" not-null="true" unique="true" ></column>
+        </many-to-one>
+        <!--==========================================-->
     </class>
 </hibernate-mapping>

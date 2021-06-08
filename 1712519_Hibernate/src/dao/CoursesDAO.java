@@ -8,24 +8,22 @@ import util.HibernateUtil;
 import java.util.List;
 
 public class CoursesDAO {
-    public static  List<Courses> getAllCourses(){
-        //open session factory:
-        List<Courses> listAllCourses=null;
-        Session ss= HibernateUtil.getSessionFactory().openSession();
+    public static  List<Courses> getAllCourses() {
+        List<Courses> danhsachKhoahoc=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
         try{
-            String querystatement="select cs from Courses as cs";
-            Query q=ss.createQuery(querystatement);
-            listAllCourses=q.list();
+            String hql ="from Courses";
+            Query q=session.createQuery(hql);
+            danhsachKhoahoc= (List<Courses>) q.list();
         }
-        catch (Exception e){
-            System.out.println("Exception in CoursesDAO: "+e.getMessage());
+        catch (Exception e)
+        {
+            System.out.println("Exception in CourseDAO: "+e.getMessage());
         }
         finally {
-            if(ss!=null){
-                ss.close();
-            }
+            if (session!=null)
+                session.close();
         }
-
-        return listAllCourses;
+        return danhsachKhoahoc;
     }
 }

@@ -10,7 +10,6 @@ import java.util.List;
 public class StudentsCoursesDAO {
     public static List<Studentscourses> getAllStudentsCourses(){
         List<Studentscourses> listAllStudentsCourse=null;
-        //open session:
         Session ss= HibernateUtil.getSessionFactory().openSession();
         try{
             String hql="select sc from Studentscourses as sc";

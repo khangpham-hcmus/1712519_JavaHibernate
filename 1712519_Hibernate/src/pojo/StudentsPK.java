@@ -6,11 +6,20 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class StudentsPK implements Serializable {
+    //-----------------------------------------------------------
     private String studentId;
     private String classId;
+    //-------------------------------------------------------------
 
-    @Column(name = "StudentID", nullable = false, length = 10)
-    @Id
+    public StudentsPK(String studentId, String classId) {
+        this.studentId = studentId;
+        this.classId = classId;
+    }
+    public StudentsPK() {
+
+    }
+    //------------------------------------------------------------------
+
     public String getStudentId() {
         return studentId;
     }
@@ -19,8 +28,6 @@ public class StudentsPK implements Serializable {
         this.studentId = studentId;
     }
 
-    @Column(name = "ClassID", nullable = false, length = 10)
-    @Id
     public String getClassId() {
         return classId;
     }
@@ -30,15 +37,9 @@ public class StudentsPK implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StudentsPK that = (StudentsPK) o;
-        return Objects.equals(studentId, that.studentId) && Objects.equals(classId, that.classId);
-    }
+    public String toString() {
+        return  "{studentId='" + studentId + '\'' +
+                ", classId='" + classId + '\'' +"}";
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(studentId, classId);
     }
 }

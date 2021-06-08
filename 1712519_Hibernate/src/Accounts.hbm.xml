@@ -11,26 +11,15 @@
         <property name="pass">
             <column name="Pass" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
-
         <property name="typeOfAccount">
             <column name="TypeOfAccount" sql-type="int" not-null="true"/>
         </property>
 
-        <one-to-one
-                name="_student_"
-                class="pojo.Students"
-                property-ref="userName"
-                lazy="false"
-                fetch="join"
-                cascade="save-update,delete">
-        </one-to-one>
+        <one-to-one name="teachermanager" class="pojo.Teachermanagers"
+                    property-ref="account" cascade="delete,save-update"></one-to-one>
 
-        <one-to-one
-                name="_teachermanager_"
-                class="pojo.Teachermanagers"
-                property-ref="userName"
+        <one-to-one name="student" class="pojo.Students"
+                    property-ref="account" cascade="save-update,delete"></one-to-one>
 
-                cascade="save-update,delete">
-        </one-to-one>
     </class>
 </hibernate-mapping>

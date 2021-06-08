@@ -5,14 +5,24 @@
 <hibernate-mapping>
 
     <class name="pojo.Subjects" table="subjects" schema="dangkyhocphan">
+
         <id name="subjectId">
             <column name="SubjectId" sql-type="varchar(10)" length="10"/>
         </id>
+
         <property name="subjectName">
             <column name="SubjectName" sql-type="varchar(50)" length="50" not-null="true"/>
         </property>
+
         <property name="creditNumber">
             <column name="CreditNumber" sql-type="int" not-null="true"/>
         </property>
+
+        <set name="courses" inverse="true">
+            <key>
+                <column name="SubjectID" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Courses" ></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

@@ -8,6 +8,28 @@ import java.util.Objects;
 @Entity
 public class Classes {
     private String classId;
+    //----------------------------------------------
+    private Students student;
+    private Courses course;
+
+    //----------------------------------------------
+    public Courses getCourse() {
+        return course;
+    }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    //-------------------------------------------------------
+    public Students getStudent() {
+        return student;
+    }
+
+    public void setStudent(Students student) {
+        this.student = student;
+    }
+    //--------------------------------------------------------
 
     @Id
     @Column(name = "ClassID", nullable = false, length = 10)

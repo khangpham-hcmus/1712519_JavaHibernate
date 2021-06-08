@@ -5,22 +5,17 @@
 <hibernate-mapping>
 
     <class name="pojo.Studentscourses" table="studentscourses" schema="dangkyhocphan">
-        <composite-id mapped="true" class="pojo.StudentscoursesPK">
-            <key-property name="studentId">
-                <column name="StudentID" sql-type="varchar(10)" length="10"/>
-            </key-property>
-            <key-property name="classId">
-                <column name="ClassID" sql-type="varchar(10)" length="10"/>
-            </key-property>
-            <key-property name="semesterYear">
-                <column name="SemesterYear" sql-type="varchar(4)" length="4"/>
-            </key-property>
-            <key-property name="semesterName">
-                <column name="SemesterName" sql-type="varchar(3)" length="3"/>
-            </key-property>
-            <key-property name="subjectId">
-                <column name="SubjectID" sql-type="varchar(10)" length="10"/>
-            </key-property>
+        <composite-id name="studentscoursesPK" class="pojo.StudentscoursesPK">
+            <key-property name="semesterYear" column="SemesterYear" length="10"
+                          type="string" />
+            <key-property name="semesterName" column="SemesterName"
+                          length="10" type="string" />
+            <key-property name="subjectId" column="SubjectID"
+                          length="10" type="string" />
+            <key-property name="classId" column="ClassID"
+                          length="10" type="string" />
+            <key-property name="studentId" column="StudentID"
+                          length="10" type="string" />
         </composite-id>
     </class>
 </hibernate-mapping>
