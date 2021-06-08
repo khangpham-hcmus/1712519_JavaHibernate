@@ -30,12 +30,11 @@
         </property>
 
         <many-to-one name="subject" class="pojo.Subjects"
-                     fetch="join" lazy="false"
-                     cascade="delete,save-update"
-                     insert="false"
-                     update="false"
+                     fetch="join" cascade="save-update,delete"
+                     lazy="false"
+                     insert="false" update="false"
                      >
-            <column name="SubjectID" length="10" not-null="true" unique="true" ></column>
+            <column name="SubjectID" length="10" not-null="true"></column>
         </many-to-one>
 
 

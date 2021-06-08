@@ -42,4 +42,17 @@ public class StudentsPK implements Serializable {
                 ", classId='" + classId + '\'' +"}";
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StudentsPK)) return false;
+        StudentsPK that = (StudentsPK) o;
+        return Objects.equals(getStudentId(), that.getStudentId()) && Objects.equals(getClassId(), that.getClassId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getStudentId(), getClassId());
+    }
 }

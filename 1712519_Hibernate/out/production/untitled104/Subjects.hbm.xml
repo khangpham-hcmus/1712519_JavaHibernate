@@ -18,11 +18,15 @@
             <column name="CreditNumber" sql-type="int" not-null="true"/>
         </property>
 
-        <set name="courses" inverse="true">
+        <set inverse="true"
+             fetch="join" lazy="false"
+             cascade="delete,save-update"
+             name="courses">
             <key>
-                <column name="SubjectID" length="10" not-null="true"></column>
+                <column length="10" name="SubjectID" not-null="true"/>
             </key>
-            <one-to-many class="pojo.Courses" ></one-to-many>
+            <one-to-many class="pojo.Courses" />
         </set>
+
     </class>
 </hibernate-mapping>

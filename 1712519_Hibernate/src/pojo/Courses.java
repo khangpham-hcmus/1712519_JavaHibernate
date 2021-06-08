@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @IdClass(CoursesPK.class)
-public class Courses {
+public class Courses implements java.io.Serializable {
     //----------------------------
     private String theoryTeacher;
     private String dayOfWeek;
@@ -14,9 +14,11 @@ public class Courses {
     private CoursesPK CoursePK;
     //-----------------------------------------
     private Subjects subject;
+
     public Subjects getSubject() {
         return subject;
     }
+
     public void setSubject(Subjects subject) {
         this.subject = subject;
     }
@@ -91,12 +93,11 @@ public class Courses {
 
     @Override
     public String toString() {
-        return "Courses{" +
+        return "Courses{" + CoursePK +", "+
                 "theoryTeacher='" + theoryTeacher + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
                 ", shift=" + shift +
                 ", maxSlot=" + maxSlot +
-                ", CoursePK=" + CoursePK +
                 '}';
     }
 }

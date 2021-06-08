@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class Subjects {
+public class Subjects implements  java.io.Serializable {
     private String subjectId;
     private String subjectName;
     private Integer creditNumber;

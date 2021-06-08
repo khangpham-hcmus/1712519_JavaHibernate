@@ -1,12 +1,11 @@
 package dao;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import pojo.Accounts;
 import pojo.Teachermanagers;
 import util.HibernateUtil;
+
 import java.util.List;
 
 public class TeacherManagersDAO {
@@ -37,6 +36,7 @@ public class TeacherManagersDAO {
             thongtin=ac.toString();
         return thongtin;
     }
+
 
 
 }
