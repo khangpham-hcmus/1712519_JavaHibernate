@@ -11,6 +11,7 @@
             <key-property name="classId" column="ClassID"
                           length="10" type="string" />
         </composite-id>
+
         <!--==========================================-->
         <property name="studentName">
             <column name="StudentName" sql-type="varchar(50)" length="50" not-null="true"/>
@@ -27,5 +28,24 @@
             <column name="UserName"  length="50" not-null="true" unique="true" ></column>
         </many-to-one>
         <!--==========================================-->
+        <set inverse="true"
+             name="studentscoursesSet"
+             cascade="save-update,delete"
+             fetch="join"
+             lazy="false">
+            <key>
+                <column name="StudentIDRegistrated" length="10" not-null="true"></column>
+                <column name="ClassIDRegistrated" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Studentscourses"></one-to-many>
+        </set>
+        <many-to-one name="classes" class="pojo.Classes"
+                     fetch="join" lazy="false"
+                     cascade="delete,save-update" insert="false"
+                     update="false"
+                     >
+            <column name="ClassID" length="10" not-null="true" ></column>
+        </many-to-one>
+
     </class>
 </hibernate-mapping>

@@ -1,7 +1,11 @@
 package pojo;
 
-import javax.persistence.*;
+import javax.naming.ldap.PagedResultsControl;
+import javax.persistence.Entity;
+import javax.persistence.IdClass;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @IdClass(CoursesPK.class)
@@ -12,6 +16,39 @@ public class Courses implements java.io.Serializable {
     private Integer shift;
     private Integer maxSlot;
     private CoursesPK CoursePK;
+    //-------------------------------------------
+    private Set<Studentscourses> studentscoursesSet=new HashSet<Studentscourses>(0);
+
+    public Set<Studentscourses> getStudentscoursesSet() {
+        return studentscoursesSet;
+    }
+
+    public void setStudentscoursesSet(Set<Studentscourses> studentscoursesSet) {
+        this.studentscoursesSet = studentscoursesSet;
+    }
+
+    //-----------------------------------------
+    private Classes classes;
+
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
+    }
+
+    //------------------------------------------
+    private Semesters semester;
+
+    public Semesters getSemester() {
+        return semester;
+    }
+
+    public void setSemester(Semesters semester) {
+        this.semester = semester;
+    }
+
     //-----------------------------------------
     private Subjects subject;
 

@@ -20,6 +20,17 @@
         <property name="dayEnd">
             <column name="DayEnd" sql-type="varchar(10)" length="10" not-null="true"/>
         </property>
+        <set name="courses"
+             inverse="true"
+             fetch="join"
+             cascade="save-update,delete"
+             lazy="false">
+            <key>
+                <column name="SemesterYear" length="4" not-null="true"/>
+                <column name="SemesterName" length="3" not-null="true"/>
+            </key>
+            <one-to-many class="pojo.Courses"/>
+        </set>
 
     </class>
 </hibernate-mapping>

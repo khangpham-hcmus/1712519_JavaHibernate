@@ -1,17 +1,27 @@
 package pojo;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.IdClass;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @IdClass(SemestersPK.class)
-public class Semesters {
+public class Semesters implements Serializable {
     SemestersPK semestersPrimarykey;
     private String dayBegin;
     private String dayEnd;
+    private Set<Courses> courses =new HashSet<Courses>(0);
 
+    public Set<Courses> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Courses> courses) {
+        this.courses = courses;
+    }
 
     public Semesters() {
     }
@@ -62,7 +72,7 @@ public class Semesters {
     @Override
     public String toString() {
         return "Semesters{" +
-                "semestersPrimarykey=" + semestersPrimarykey +
+                "" + semestersPrimarykey +
                 ", dayBegin='" + dayBegin + '\'' +
                 ", dayEnd='" + dayEnd + '\'' +
                 '}';

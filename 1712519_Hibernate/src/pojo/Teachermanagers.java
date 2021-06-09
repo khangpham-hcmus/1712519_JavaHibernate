@@ -1,13 +1,11 @@
 package pojo;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Teachermanagers {
+public class Teachermanagers implements Serializable {
     private String teacherManagerId;
     private String teacherManagerName;
     private Accounts account;

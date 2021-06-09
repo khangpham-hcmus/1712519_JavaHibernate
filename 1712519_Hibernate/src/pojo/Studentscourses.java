@@ -1,6 +1,5 @@
 package pojo;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -9,34 +8,46 @@ import java.util.Objects;
 @Entity
 @IdClass(StudentscoursesPK.class)
 public class Studentscourses {
-    private  StudentscoursesPK studentscoursesPK;
+    private StudentscoursesPK studentscoursesPrimarykey;
+    //----------------------------------------------
+    private Courses course;
 
-    public Studentscourses(StudentscoursesPK studentscoursesPK) {
-        this.studentscoursesPK = studentscoursesPK;
+    public Courses getCourse() {
+        return course;
     }
+
+    public void setCourse(Courses course) {
+        this.course = course;
+    }
+
+    //---------------------------------------------
+    private Students student;
+
+    public Students getStudent() {
+        return student;
+    }
+
+    public void setStudent(Students student) {
+        this.student = student;
+    }
+    //-----------------------------------------------
+
+    public StudentscoursesPK getStudentscoursesPrimarykey() {
+        return studentscoursesPrimarykey;
+    }
+    public void setStudentscoursesPrimarykey(StudentscoursesPK studentscoursesPrimarykey) {
+        this.studentscoursesPrimarykey = studentscoursesPrimarykey;
+    }
+
+    public Studentscourses(StudentscoursesPK studentscoursesPrimarykey) {
+        this.studentscoursesPrimarykey = studentscoursesPrimarykey;
+    }
+
     public Studentscourses() {
     }
-    public void setStudentscoursesPK(StudentscoursesPK studentscoursesPK) {
-        this.studentscoursesPK = studentscoursesPK;
-    }
-    public StudentscoursesPK getStudentscoursesPK() {
-        return studentscoursesPK;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Studentscourses)) return false;
-        Studentscourses that = (Studentscourses) o;
-        return Objects.equals(getStudentscoursesPK(), that.getStudentscoursesPK());
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(getStudentscoursesPK());
-    }
+
     @Override
     public String toString() {
-        return "Studentscourses{" +
-                "studentscoursesPK=" + studentscoursesPK.toString() +
-                '}';
+        return studentscoursesPrimarykey.toString();
     }
 }

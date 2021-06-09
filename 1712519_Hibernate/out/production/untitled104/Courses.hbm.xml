@@ -30,14 +30,44 @@
         </property>
 
         <many-to-one name="subject" class="pojo.Subjects"
-                     fetch="join" cascade="save-update,delete"
+                     fetch="join"
                      lazy="false"
                      insert="false" update="false"
+                     cascade="save-update,delete "
                      >
-            <column name="SubjectID" length="10" not-null="true"></column>
+            <column name="SubjectID" length="10" not-null="true"/>
         </many-to-one>
 
+        <many-to-one name="semester" class="pojo.Semesters"
+                     insert="false" update="false"
+                     fetch="join"
+                     lazy="false"
+                     cascade="save-update,delete"
+                     >
+            <column name="SemesterYear" length="4" not-null="true"></column>
+            <column name="SemesterName" length="3" not-null="true"></column>
+        </many-to-one>
 
+        <many-to-one name="classes" class="pojo.Classes"
+                     fetch="join" lazy="false"
+                     insert="false" update="false"
+                     cascade="delete,save-update">
+            <column name="ClassID" not-null="true" length="10"></column>
+        </many-to-one>
+
+        <set inverse="true"
+             name="studentscoursesSet"
+             fetch="join"
+             cascade="delete,save-update"
+             lazy="false">
+            <key>
+                <column name="SemesterYearCourses" length="4" not-null="true"> </column>
+                <column name="SemesterNameCourses" length="3" not-null="true"></column>
+                <column name="SubjectIDCourses" length="10" not-null="true"></column>
+                <column name="ClassIDCourses" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Studentscourses"></one-to-many>
+        </set>
 
     </class>
 </hibernate-mapping>

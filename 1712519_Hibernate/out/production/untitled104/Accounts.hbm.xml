@@ -18,6 +18,7 @@
         <one-to-one name="teachermanager" class="pojo.Teachermanagers"
                     property-ref="account" cascade="delete,save-update"></one-to-one>
 
+
         <one-to-one name="student" class="pojo.Students"
                     property-ref="account" cascade="save-update,delete"></one-to-one>
 

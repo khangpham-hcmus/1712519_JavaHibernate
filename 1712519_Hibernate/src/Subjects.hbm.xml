@@ -18,9 +18,9 @@
             <column name="CreditNumber" sql-type="int" not-null="true"/>
         </property>
 
-        <set inverse="true"
+        <set inverse="true" table="courses"
              fetch="join" lazy="false"
-             cascade="delete,save-update"
+             cascade="save-update,delete"
              name="courses">
             <key>
                 <column length="10" name="SubjectID" not-null="true"/>

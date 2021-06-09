@@ -8,7 +8,7 @@ import util.HibernateUtil;
 import java.util.List;
 
 public class SemestersDAO {
-    public  static List<Semesters> getAllSemesters(){
+    public  static List<Semesters> GetListSemesters(){
         List<Semesters> listAllSemester=null;
         Session ss= HibernateUtil.getSessionFactory().openSession();
         try{
@@ -18,6 +18,7 @@ public class SemestersDAO {
         }
         catch (Exception e){
             System.out.println("Exception in SemesterDAO: "+e.getMessage());
+            listAllSemester=null;
         }
         return listAllSemester;
     }

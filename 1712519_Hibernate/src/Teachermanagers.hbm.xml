@@ -17,7 +17,7 @@
                      fetch="join" lazy="false"
                      cascade="save-update,delete"
                      >
-            <column name="UserName" unique="true" length="50" not-null="false"></column>
+            <column name="UserName" unique="true" length="50" not-null="true"></column>
         </many-to-one>
 
 

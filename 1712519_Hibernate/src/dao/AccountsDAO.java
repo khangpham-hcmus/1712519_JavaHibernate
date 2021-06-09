@@ -45,7 +45,8 @@ public class AccountsDAO {
                 Transaction transaction=null;
                 try{
                     transaction=session.beginTransaction();
-                    session.delete(acc);
+                    Object a= session.load(Accounts.class,username);
+                    session.delete(a);
                     transaction.commit();
                     checkDelete=true;
                 }

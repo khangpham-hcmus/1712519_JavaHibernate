@@ -1,26 +1,49 @@
 package pojo;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.IdClass;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @IdClass(StudentsPK.class)
 public class Students {
+    //-------------------------------
     StudentsPK studentsPK;
     private String studentName;
     private String gender;
     private Accounts account;
-    //-------------------------------------------
+    private Classes classes;
 
-    public Accounts getAccount() {
+    public Classes getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Classes classes) {
+        this.classes = classes;
+    }
+
+    //------------------------------------------------------------------------------------------------
+    private Set<Studentscourses> studentscoursesSet=new HashSet<Studentscourses>(0);
+
+    public Set<Studentscourses> getStudentscoursesSet() {
+        return studentscoursesSet;
+    }
+
+    public void setStudentscoursesSet(Set<Studentscourses> studentscoursesSet) {
+        this.studentscoursesSet = studentscoursesSet;
+    }
+
+    //-------------------------------------------------------------------------------------------------
+    public Accounts getAccount()
+    {
         return account;
     }
-
-    public void setAccount(Accounts account) {
+    public void setAccount(Accounts account)
+    {
         this.account = account;
     }
-
-
     //Constructor:------------------------
 
     public Students(StudentsPK studentsPK, String studentName, String gender, Accounts account) {

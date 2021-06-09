@@ -1,9 +1,6 @@
 package pojo;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,7 +16,6 @@ public class Subjects implements  java.io.Serializable {
     public Set<Courses> getCourses() {
         return courses;
     }
-
     public void setCourses(Set<Courses> courses) {
         this.courses = courses;
     }

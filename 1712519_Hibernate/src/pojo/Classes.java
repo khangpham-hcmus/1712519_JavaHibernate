@@ -3,33 +3,33 @@ package pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Classes {
     private String classId;
     //----------------------------------------------
-    private Students student;
-    private Courses course;
-
-    //----------------------------------------------
-    public Courses getCourse() {
-        return course;
-    }
-
-    public void setCourse(Courses course) {
-        this.course = course;
-    }
-
-    //-------------------------------------------------------
-    public Students getStudent() {
-        return student;
-    }
-
-    public void setStudent(Students student) {
-        this.student = student;
-    }
+    private Set<Courses> courses=new HashSet<Courses>(0);
+    private Set<Students> students=new HashSet<Students>(0);
     //--------------------------------------------------------
+
+    public Set<Courses> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Courses> courses) {
+        this.courses = courses;
+    }
+
+    public Set<Students> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Students> students) {
+        this.students = students;
+    }
 
     @Id
     @Column(name = "ClassID", nullable = false, length = 10)
@@ -59,5 +59,13 @@ public class Classes {
         return "Classes{" +
                 "classId='" + classId + '\'' +
                 '}';
+    }
+    public Classes()
+    {
+
+    }
+    public Classes(String classId)
+    {
+        this.classId=classId;
     }
 }

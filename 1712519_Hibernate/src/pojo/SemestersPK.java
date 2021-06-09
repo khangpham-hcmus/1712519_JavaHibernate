@@ -1,7 +1,5 @@
 package pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -48,9 +46,9 @@ public class SemestersPK implements Serializable {
 
     @Override
     public String toString() {
-        return "SemestersPK{" +
+        return "[" +
                 "semesterYear='" + semesterYear + '\'' +
                 ", semesterName='" + semesterName + '\'' +
-                '}';
+                ']';
     }
 }

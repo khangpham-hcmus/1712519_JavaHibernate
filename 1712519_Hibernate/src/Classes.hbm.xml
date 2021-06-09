@@ -7,6 +7,26 @@
         <id name="classId">
             <column name="ClassID" sql-type="varchar(10)" length="10"/>
         </id>
+        <set name="courses"
+             fetch="join"
+             lazy="false"
+             cascade="save-update,delete"
+             inverse="true">
+            <key>
+                <column name="ClassID" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Courses"></one-to-many>
+        </set>
 
+        <set name="students"
+             inverse="true"
+             fetch="join"
+             cascade="delete,save-update"
+             lazy="false">
+            <key>
+                <column name="ClassID" length="10" not-null="true"></column>
+            </key>
+            <one-to-many class="pojo.Students"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

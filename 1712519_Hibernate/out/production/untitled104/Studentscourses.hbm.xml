@@ -5,17 +5,39 @@
 <hibernate-mapping>
 
     <class name="pojo.Studentscourses" table="studentscourses" schema="dangkyhocphan">
-        <composite-id name="studentscoursesPK" class="pojo.StudentscoursesPK">
-            <key-property name="semesterYear" column="SemesterYear" length="10"
-                          type="string" />
-            <key-property name="semesterName" column="SemesterName"
-                          length="10" type="string" />
-            <key-property name="subjectId" column="SubjectID"
-                          length="10" type="string" />
-            <key-property name="classId" column="ClassID"
-                          length="10" type="string" />
-            <key-property name="studentId" column="StudentID"
-                          length="10" type="string" />
+        <composite-id name="studentscoursesPrimarykey" class="pojo.StudentscoursesPK">
+            <key-property name="studentIdRegistrated" column="StudentIDRegistrated" length="10"
+                          type="java.lang.String"></key-property>
+            <key-property name="classIdRegistrated" column="ClassIDRegistrated" length="10"
+                          type="java.lang.String"></key-property>
+            <key-property name="semesterYearCourse" column="SemesterYearCourses" length="4"
+                          type="java.lang.String"></key-property>
+            <key-property name="semesterNameCourse" column="SemesterNameCourses" length="3"
+                          type="java.lang.String"></key-property>
+            <key-property name="subjectIdCourse" column="SubjectIDCourses" length="10"
+                          type="java.lang.String"></key-property>
+            <key-property name="classIdCourse" column="ClassIDCourses" length="10" type="java.lang.String">
+            </key-property>
         </composite-id>
+
+        <many-to-one name="student" fetch="join" class="pojo.Students"
+                     lazy="false" cascade="save-update,delete"
+                     insert="false" update="false"
+                     >
+            <column name="StudentIDRegistrated" length="10" not-null="true"></column>
+            <column name="ClassIDRegistrated" length="10" not-null="true"></column>
+        </many-to-one>
+
+        <many-to-one name="course"
+                     update="false" insert="false"
+                     lazy="false" cascade="delete,save-update"
+                     fetch="join"
+                     >
+            <column name="SemesterYearCourses" length="4" not-null="true"></column>
+            <column name="SemesterNameCourses" length="3" not-null="true"></column>
+            <column name="SubjectIDCourses" length="10" not-null="true" ></column>
+            <column name="ClassIDCourses" length="10" not-null="true"></column>
+        </many-to-one>
+
     </class>
 </hibernate-mapping>
