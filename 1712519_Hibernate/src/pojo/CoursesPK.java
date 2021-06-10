@@ -12,6 +12,17 @@ public class CoursesPK implements Serializable {
     public String getSemesterYear() {
         return semesterYear;
     }
+
+    public CoursesPK() {
+    }
+
+    public CoursesPK(String semesterYear, String semesterName, String subjectId, String classId) {
+        this.semesterYear = semesterYear;
+        this.semesterName = semesterName;
+        this.subjectId = subjectId;
+        this.classId = classId;
+    }
+
     public void setSemesterYear(String semesterYear) {
         this.semesterYear = semesterYear;
     }

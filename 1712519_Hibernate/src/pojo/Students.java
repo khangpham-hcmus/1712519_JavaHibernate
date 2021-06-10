@@ -16,6 +16,7 @@ public class Students {
     private Accounts account;
     private Classes classes;
 
+
     public Students(StudentsPK studentsPK, String studentName, String gender) {
         this.studentsPK = studentsPK;
         this.studentName = studentName;
@@ -23,7 +24,7 @@ public class Students {
     }
     public Students(String studentId,String classID,String studentName,String gender)
     {
-        this.studentsPK=new StudentsPK(studentId,studentName);
+        this.studentsPK=new StudentsPK(studentId,classID);
         this.studentName=studentName;
         this.gender=gender;
     }

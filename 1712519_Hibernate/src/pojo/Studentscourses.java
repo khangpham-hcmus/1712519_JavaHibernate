@@ -9,6 +9,17 @@ import java.util.Objects;
 @IdClass(StudentscoursesPK.class)
 public class Studentscourses {
     private StudentscoursesPK studentscoursesPrimarykey;
+    //----------------------------------------------------
+    public Studentscourses(Students hocsinh,Courses khoahoc)
+    {
+        studentscoursesPrimarykey=new StudentscoursesPK();
+        this.studentscoursesPrimarykey.setStudentIdRegistrated(hocsinh.getStudentsPK().getStudentId());
+        this.studentscoursesPrimarykey.setClassIdRegistrated(hocsinh.getStudentsPK().getClassId());
+        this.studentscoursesPrimarykey.setSemesterYearCourse(khoahoc.getCoursePK().getSemesterYear());
+        this.studentscoursesPrimarykey.setSemesterNameCourse(khoahoc.getCoursePK().getSemesterName());
+        this.studentscoursesPrimarykey.setSubjectIdCourse(khoahoc.getCoursePK().getSubjectId());
+        this.studentscoursesPrimarykey.setClassIdCourse(khoahoc.getCoursePK().getClassId());
+    }
     //----------------------------------------------
     private Courses course;
 

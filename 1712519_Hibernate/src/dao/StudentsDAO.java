@@ -5,9 +5,11 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import pojo.Accounts;
 import pojo.Students;
+import pojo.Studentscourses;
 import util.HibernateUtil;
 
 import java.util.List;
+import java.util.Set;
 
 public class StudentsDAO {
     public  static  List<Students> GetListStudents()
@@ -145,12 +147,14 @@ public class StudentsDAO {
         else
         {
             hocsinhMoi=student;
+            System.out.println(hocsinhMoi);
             String studentID=hocsinhMoi.getStudentsPK().getStudentId();
             Session session=HibernateUtil.getSessionFactory().openSession();
             Transaction transaction=null;
             try{
                 transaction=session.beginTransaction();
                 Accounts acc=new Accounts(studentID,studentID,2);
+                hocsinhMoi.setAccount(acc);
                 acc.setStudent(hocsinhMoi);
                 session.save(acc);
                 transaction.commit();
@@ -167,4 +171,16 @@ public class StudentsDAO {
         }
         return checkAdd;
     }
+    public static Set<Studentscourses> GetCoursesRegistrated(String studentId)
+    {
+        Students hocsinh=StudentsDAO.GetStudent(studentId);
+        Set<Studentscourses> studentscoursesSet=null;
+        if(hocsinh!=null)
+        {
+            studentscoursesSet=hocsinh.getStudentscoursesSet();
+        }
+        return studentscoursesSet;
+    }
+
+
 }

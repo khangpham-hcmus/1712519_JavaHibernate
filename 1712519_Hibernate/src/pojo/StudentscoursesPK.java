@@ -14,15 +14,6 @@ public class StudentscoursesPK implements Serializable {
     public StudentscoursesPK() {
     }
 
-    public StudentscoursesPK(String studentIdRegistrated, String classIdRegistrated, String semesterYearCourse, String semesterNameCourse, String subjectIdCourse, String classIdCourse) {
-        this.studentIdRegistrated = studentIdRegistrated;
-        this.classIdRegistrated = classIdRegistrated;
-        this.semesterYearCourse = semesterYearCourse;
-        this.semesterNameCourse = semesterNameCourse;
-        this.subjectIdCourse = subjectIdCourse;
-        this.classIdCourse = classIdCourse;
-    }
-
     public String getStudentIdRegistrated() {
         return studentIdRegistrated;
     }
