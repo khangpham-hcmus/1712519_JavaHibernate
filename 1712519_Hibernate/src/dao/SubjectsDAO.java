@@ -3,18 +3,14 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import pojo.Courses;
-import pojo.Studentscourses;
 import pojo.Subjects;
 import util.HibernateUtil;
 
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Callable;
 
 public class SubjectsDAO {
-    public static Subjects GetSubject(String SubjectId) {
+    public static Subjects GetSubject(String SubjectId)
+    {
         Subjects subjects = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -27,8 +23,8 @@ public class SubjectsDAO {
         }
         return subjects;
     }
-
-    public static List<Subjects> GetListSubjects() {
+    public static List<Subjects> GetListSubjects()
+    {
         List<Subjects> ListSubjects = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -43,8 +39,8 @@ public class SubjectsDAO {
         }
         return ListSubjects;
     }
-
-    public static boolean AddSubject(Subjects subjects) {
+    public static boolean AddSubject(Subjects subjects)
+    {
         boolean check = false;
         Subjects monhoc = SubjectsDAO.GetSubject(subjects.getSubjectId());
         if (monhoc == null) {
@@ -66,8 +62,8 @@ public class SubjectsDAO {
             check = false;
         return check;
     }
-
-    public static boolean DeleteSubject(String subjectID) {
+    public static boolean DeleteSubject(String subjectID)
+    {
         boolean checkDelete = false;
         Subjects sb = SubjectsDAO.GetSubject(subjectID);
         if (sb == null)
@@ -77,7 +73,21 @@ public class SubjectsDAO {
             Transaction transaction = null;
             try {
                 transaction=session.beginTransaction();
-                session.delete(sb);
+                //delete in studentscourses table
+                String hql1="delete from Studentscourses as s where s.studentscoursesPrimarykey.subjectIdCourse=:ID";
+                Query q1=session.createQuery(hql1);
+                q1.setParameter("ID",subjectID);
+                q1.executeUpdate();
+                //delete in courses table:
+                String hql2="delete from Courses  as c where  c.coursePK.subjectId=:ID";
+                Query q2=session.createQuery(hql2);
+                q2.setParameter("ID",subjectID);
+                q2.executeUpdate();
+                //delete subject:
+                String hql3="delete from Subjects as s where s.subjectId=:ID";
+                Query q3=session.createQuery(hql3);
+                q3.setParameter("ID",subjectID);
+                q3.executeUpdate();
                 transaction.commit();
                 checkDelete=true;
             } catch (Exception e) {
@@ -90,8 +100,8 @@ public class SubjectsDAO {
         }
         return checkDelete;
     }
-
-    public static Subjects GetListCoursesOfSubjects(String maMonHoc) {
+    public static Subjects GetListCoursesOfSubjects(String maMonHoc)
+    {
         Subjects monhoc = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -107,7 +117,6 @@ public class SubjectsDAO {
         }
         return monhoc;
     }
-
     public static boolean UpdateInformationSubject(String SubjectID, String newNameSubject, Integer CreditNum)
     {
         boolean checkUpdate = false;

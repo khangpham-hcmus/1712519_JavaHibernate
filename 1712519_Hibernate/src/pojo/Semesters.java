@@ -14,7 +14,7 @@ public class Semesters implements Serializable {
     private String dayBegin;
     private String dayEnd;
     private Set<Courses> courses =new HashSet<Courses>(0);
-
+    private  String currentSemester;
     public Set<Courses> getCourses() {
         return courses;
     }
@@ -26,10 +26,17 @@ public class Semesters implements Serializable {
     public Semesters() {
     }
 
-    public Semesters(SemestersPK semestersPrimarykey, String dayBegin, String dayEnd) {
-        this.semestersPrimarykey = semestersPrimarykey;
-        this.dayBegin = dayBegin;
-        this.dayEnd = dayEnd;
+    public Semesters(String year,String name,String daybegin,String dayend,String current)
+    {
+        semestersPrimarykey=new SemestersPK(year,name);
+        this.dayBegin=daybegin;
+        this.dayEnd=dayend;
+        if(current.equals("0")||current.equals("1"))
+        {
+            this.currentSemester=current;
+        }
+        else
+            this.currentSemester="0";
     }
 
     public SemestersPK getSemestersPrimarykey() {
@@ -56,25 +63,40 @@ public class Semesters implements Serializable {
         this.dayEnd = dayEnd;
     }
 
+    public String getCurrentSemester() {
+        return currentSemester;
+    }
+
+    public void setCurrentSemester(String current) {
+        if(current.equals("0")||current.equals("1"))
+        {
+            this.currentSemester=current;
+        }
+        else
+            this.currentSemester="0";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Semesters)) return false;
         Semesters semesters = (Semesters) o;
-        return Objects.equals(getSemestersPrimarykey(), semesters.getSemestersPrimarykey()) && Objects.equals(getDayBegin(), semesters.getDayBegin()) && Objects.equals(getDayEnd(), semesters.getDayEnd());
+        return Objects.equals(getSemestersPrimarykey(), semesters.getSemestersPrimarykey()) && Objects.equals(getDayBegin(), semesters.getDayBegin()) && Objects.equals(getDayEnd(), semesters.getDayEnd()) && Objects.equals(getCourses(), semesters.getCourses()) && Objects.equals(getCurrentSemester(), semesters.getCurrentSemester());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSemestersPrimarykey(), getDayBegin(), getDayEnd());
+        return Objects.hash(getSemestersPrimarykey(), getDayBegin(), getDayEnd(), getCourses(), getCurrentSemester());
     }
 
     @Override
     public String toString() {
         return "Semesters{" +
-                "" + semestersPrimarykey +
+                "semestersPrimarykey=" + semestersPrimarykey +
                 ", dayBegin='" + dayBegin + '\'' +
                 ", dayEnd='" + dayEnd + '\'' +
+                ", courses=" + courses +
+                ", currentSemester='" + currentSemester + '\'' +
                 '}';
     }
 }

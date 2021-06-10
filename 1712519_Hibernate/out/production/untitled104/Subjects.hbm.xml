@@ -20,7 +20,7 @@
 
         <set inverse="true" table="courses"
              fetch="join" lazy="false"
-             cascade="save-update,delete"
+             cascade="save-update,delete-orphan"
              name="courses">
             <key>
                 <column length="10" name="SubjectID" not-null="true"/>

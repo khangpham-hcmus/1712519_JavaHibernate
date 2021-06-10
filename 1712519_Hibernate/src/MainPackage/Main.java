@@ -11,17 +11,8 @@ public class Main {
     public static void main(String[] args) {
         try
         {
-            Studentscourses st=new Studentscourses();
-            StudentscoursesPK studentscoursesPK=new StudentscoursesPK();
-            studentscoursesPK.setClassIdRegistrated("17CTT4");
-            studentscoursesPK.setStudentIdRegistrated("1712519");
-            studentscoursesPK.setSubjectIdCourse("CSC10003");
-            studentscoursesPK.setClassIdCourse("17CTT1");
-            studentscoursesPK.setSemesterNameCourse("hk1");
-            studentscoursesPK.setSemesterYearCourse("2019");
-            st.setStudentscoursesPrimarykey(studentscoursesPK);
-            System.out.println(StudentsCoursesDAO.GetStudentCourse(st));
-            boolean b=StudentsCoursesDAO.DeleteStudentCourse(st);
+            Semesters  hocki=new Semesters("2020","hk2","","","0");
+            boolean b=SemestersDAO.DeleteSemester(hocki);
             System.out.println(b);
         }
         catch (Exception e){

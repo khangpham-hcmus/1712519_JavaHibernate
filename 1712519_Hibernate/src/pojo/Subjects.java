@@ -13,7 +13,7 @@ public class Subjects implements  java.io.Serializable {
     //---------------------------------------
     private Set<Courses> courses=new HashSet<Courses>(0);
 
-    public Set<Courses> getCourses() {
+    public Set<Courses>getCourses() {
         return courses;
     }
     public void setCourses(Set<Courses> courses) {

@@ -37,14 +37,14 @@ public class CoursesPK implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof CoursesPK)) return false;
         CoursesPK coursesPK = (CoursesPK) o;
-        return Objects.equals(semesterYear, coursesPK.semesterYear) && Objects.equals(semesterName, coursesPK.semesterName) && Objects.equals(subjectId, coursesPK.subjectId) && Objects.equals(classId, coursesPK.classId);
+        return Objects.equals(getSemesterYear(), coursesPK.getSemesterYear()) && Objects.equals(getSemesterName(), coursesPK.getSemesterName()) && Objects.equals(getSubjectId(), coursesPK.getSubjectId()) && Objects.equals(getClassId(), coursesPK.getClassId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(semesterYear, semesterName, subjectId, classId);
+        return Objects.hash(getSemesterYear(), getSemesterName(), getSubjectId(), getClassId());
     }
 
     @Override
