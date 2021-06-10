@@ -73,7 +73,6 @@ public class CoursesDAO {
         Session session=HibernateUtil.getSessionFactory().openSession();
         Transaction transaction=null;
         try {
-
             transaction=session.beginTransaction();
             session.save(khoahoc);
             transaction.commit();

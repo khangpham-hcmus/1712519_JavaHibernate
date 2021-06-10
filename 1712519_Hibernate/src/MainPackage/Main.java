@@ -1,7 +1,9 @@
 package MainPackage;
 
 import dao.AccountsDAO;
+import dao.CoursesDAO;
 import pojo.Accounts;
+import pojo.Courses;
 import swingUI.Controller;
 
 import java.util.List;
@@ -16,9 +18,8 @@ public class Main {
                     appController.showLoginGUI();
                 }
             });
-            List<Accounts> ds=AccountsDAO.GetTeachermanagerAccount();
-            for(Accounts s:ds)
-            {System.out.println(s);}
+
+
         }
         catch (Exception e){
             System.out.println("Exception in main: "+e.toString());

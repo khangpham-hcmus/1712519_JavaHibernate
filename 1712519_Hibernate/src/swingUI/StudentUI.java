@@ -18,6 +18,7 @@ public class StudentUI extends JFrame {
     private JButton jbtChangeInformation=null;
     private JButton jbtChangePassword=null;
     private JButton jbtLogout=null;
+    private JButton jbtRegistrationCourse=null;
 
     private JPanel LeftPanel=null;
     private JPanel RightPanel=null;
@@ -42,10 +43,13 @@ public class StudentUI extends JFrame {
         jbtChangeInformation=new JButton("Change information account");
         jbtChangePassword=new JButton("Change password");
         jbtLogout=new JButton("Log out");
+        jbtRegistrationCourse=new JButton("Registrate course");
 
         LeftPanel = new JPanel();
         LeftPanel.setLayout(new GridLayout(0, 1));
+
         LeftPanel.add(jbtInformation);
+        LeftPanel.add(jbtRegistrationCourse);
         LeftPanel.add(jbtChangeInformation);
         LeftPanel.add(jbtChangePassword);
         LeftPanel.add(jbtLogout);
@@ -122,6 +126,12 @@ public class StudentUI extends JFrame {
                         JOptionPane.showMessageDialog(RightPanel, "Change password failed");
                     }
                 }
+            }
+        });
+        jbtRegistrationCourse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
