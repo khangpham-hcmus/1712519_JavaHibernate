@@ -1,18 +1,20 @@
 package MainPackage;
 
-import dao.*;
-import pojo.*;
+import dao.ClassesDAO;
+import dao.StudentsDAO;
+import pojo.Classes;
+import pojo.InformationOfClass;
+import pojo.Students;
 
-import javax.swing.text.Style;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         try
         {
-            Semesters  hocki=new Semesters("2020","hk2","","","0");
-            boolean b=SemestersDAO.DeleteSemester(hocki);
+            Students hocsinh=new Students("17125777","17CTT1","Tran Minh Nghi","Female");
+            boolean b=StudentsDAO.AddStudent(hocsinh);
             System.out.println(b);
         }
         catch (Exception e){

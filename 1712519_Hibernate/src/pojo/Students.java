@@ -16,6 +16,19 @@ public class Students {
     private Accounts account;
     private Classes classes;
 
+    public Students(StudentsPK studentsPK, String studentName, String gender) {
+        this.studentsPK = studentsPK;
+        this.studentName = studentName;
+        this.gender = gender;
+    }
+    public Students(String studentId,String classID,String studentName,String gender)
+    {
+        this.studentsPK=new StudentsPK(studentId,studentName);
+        this.studentName=studentName;
+        this.gender=gender;
+    }
+
+
     public Classes getClasses() {
         return classes;
     }

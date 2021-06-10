@@ -13,6 +13,13 @@ public class Classes {
     //----------------------------------------------
     private Set<Courses> courses=new HashSet<Courses>(0);
     private Set<Students> students=new HashSet<Students>(0);
+
+    public Classes() {
+    }
+
+    public Classes(String classId) {
+        this.classId = classId;
+    }
     //--------------------------------------------------------
 
     public Set<Courses> getCourses() {
@@ -59,13 +66,5 @@ public class Classes {
         return "Classes{" +
                 "classId='" + classId + '\'' +
                 '}';
-    }
-    public Classes()
-    {
-
-    }
-    public Classes(String classId)
-    {
-        this.classId=classId;
     }
 }
