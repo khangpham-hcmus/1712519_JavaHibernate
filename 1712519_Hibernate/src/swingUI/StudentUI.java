@@ -1,12 +1,20 @@
 package swingUI;
 
 import dao.AccountsDAO;
+import dao.CoursesDAO;
+import dao.StudentsCoursesDAO;
+import dao.StudentsDAO;
 import pojo.Accounts;
+import pojo.Courses;
+import pojo.Studentscourses;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
 
 public class StudentUI extends JFrame {
     //----------------------------------------------------------------------------------------
@@ -18,7 +26,9 @@ public class StudentUI extends JFrame {
     private JButton jbtChangeInformation=null;
     private JButton jbtChangePassword=null;
     private JButton jbtLogout=null;
+    private  JButton jbtRegistratedResult=null;
     private JButton jbtRegistrationCourse=null;
+    private JButton jbtResetpassword=null;
 
     private JPanel LeftPanel=null;
     private JPanel RightPanel=null;
@@ -43,15 +53,19 @@ public class StudentUI extends JFrame {
         jbtChangeInformation=new JButton("Change information account");
         jbtChangePassword=new JButton("Change password");
         jbtLogout=new JButton("Log out");
-        jbtRegistrationCourse=new JButton("Registrate course");
+        jbtRegistrationCourse=new JButton("Registrated course");
+        jbtRegistratedResult=new JButton("Registrated result");
+        jbtResetpassword=new JButton("Reset password");
 
         LeftPanel = new JPanel();
         LeftPanel.setLayout(new GridLayout(0, 1));
 
         LeftPanel.add(jbtInformation);
         LeftPanel.add(jbtRegistrationCourse);
+        LeftPanel.add(jbtRegistratedResult);
         LeftPanel.add(jbtChangeInformation);
         LeftPanel.add(jbtChangePassword);
+        LeftPanel.add(jbtResetpassword);
         LeftPanel.add(jbtLogout);
 
         RightPanel = new JPanel();
@@ -131,7 +145,108 @@ public class StudentUI extends JFrame {
         jbtRegistrationCourse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.revalidate();
 
+                Vector headers=new Vector();
+                headers.add("STT");
+                headers.add("Year");
+                headers.add("Name");
+                headers.add("SubjectID");
+                headers.add("SubjectName");
+                headers.add("ClassID");
+                headers.add("TheoryName");
+                headers.add("Dayofweek");
+                headers.add("Shift");
+                headers.add("Room");
+
+                List<Courses> danhsachKhoaHoc= CoursesDAO.GetCurrentSemesterCourse();
+                Vector datas=new Vector();
+                Integer i=0;
+                for(Courses c:danhsachKhoaHoc)
+                {
+                    Vector line=new Vector();
+                    line.add(i.toString());
+                    line.add(c.getSemesterYearCourse());
+                    line.add(c.getSemesterNameCourse());
+                    line.add(c.getSubjectIdCourse());
+                    line.add(c.getSubject().getSubjectName());
+                    line.add(c.getClassIdCourse());
+                    line.add(c.getTheoryTeacher());
+                    line.add(c.getDayOfWeek());
+                    line.add(c.getShift());
+                    line.add(c.getShift());
+                    line.add(c.getRoom());
+                    datas.add(line);
+                    i++;
+                }
+                JTable jTable=new JTable(new DefaultTableModel(datas,headers));
+                JScrollPane jScrollPane=new JScrollPane(jTable);
+                RightPanel.add(jScrollPane);
+                String stt=JOptionPane.showInputDialog(RightPanel,"Input stt to registrated course: ","Registration Courses",JOptionPane.WARNING_MESSAGE);
+                Integer value=Integer.parseInt(stt);
+                if(value>=0&&value<danhsachKhoaHoc.size())
+                {
+                    Courses khoahoc=danhsachKhoaHoc.get(value);
+                    Studentscourses svkh=new Studentscourses(account.getStudent(),khoahoc);
+                    int b= StudentsCoursesDAO.ToRegistrationCourse(account.getStudent(),khoahoc);
+                    if(b==1)
+                    {
+                        JOptionPane.showMessageDialog(RightPanel,"Registration successfully");
+                    }
+                    else
+                        JOptionPane.showMessageDialog(RightPanel, "Registration failed");
+                }
+                else
+                    JOptionPane.showMessageDialog(RightPanel,"Invalid input");
+            }
+        });
+        jbtRegistratedResult.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                List<Studentscourses> dsdk= StudentsDAO.GetCoursesRegistrated(account.getStudent().getStudentsPK().getStudentId());
+                Vector headers=new Vector();
+                Integer i=0;
+                headers.add("STT");
+                headers.add("MSSV");
+                headers.add("NAME");
+                headers.add("CourseName");
+                headers.add("DayofWeek");
+                Vector datas=new Vector();
+                for(Studentscourses s:dsdk)
+                {
+                    Vector line=new Vector();
+                    line.add(i.toString());
+                    line.add(s.getStudent().getStudentsPK().getStudentId());
+                    line.add(s.getStudent().getStudentName());
+                    line.add(s.getCourse().getSubject().getSubjectName());
+                    line.add(s.getCourse().getDayOfWeek());
+                    datas.add(line);
+                    i++;
+                }
+                JTable jTable=new JTable(new DefaultTableModel(datas,headers));
+                JScrollPane jScrollPane=new JScrollPane(jTable);
+                RightPanel.add(jScrollPane);
+            }
+        });
+        jbtResetpassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                boolean b=StudentsDAO.ResetPasswordStudent(account.getStudent().getStudentsPK().getStudentId());
+                if(b)
+                {
+                    JOptionPane.showMessageDialog(RightPanel,"Reset Okey");
+                }
+                else {
+                    JOptionPane.showMessageDialog(RightPanel,"Reset failed");
+                }
             }
         });
     }
@@ -148,7 +263,7 @@ public class StudentUI extends JFrame {
     {
         return this.account;
     }
-    public void ShowGUI(boolean value)
+    public void  ShowGUI(boolean value)
     {
         this.pack();
         this.setVisible(value);

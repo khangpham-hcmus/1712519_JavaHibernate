@@ -8,6 +8,7 @@ import pojo.Students;
 import pojo.Studentscourses;
 import util.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -171,15 +172,18 @@ public class StudentsDAO {
         }
         return checkAdd;
     }
-    public static Set<Studentscourses> GetCoursesRegistrated(String studentId)
+    public static List<Studentscourses> GetCoursesRegistrated(String studentId)
     {
         Students hocsinh=StudentsDAO.GetStudent(studentId);
+        List<Studentscourses> danhsachKhoaHocDaDK=new ArrayList<>(0);
         Set<Studentscourses> studentscoursesSet=null;
         if(hocsinh!=null)
         {
             studentscoursesSet=hocsinh.getStudentscoursesSet();
+            for(Studentscourses s:studentscoursesSet)
+                danhsachKhoaHocDaDK.add(s);
         }
-        return studentscoursesSet;
+        return danhsachKhoaHocDaDK;
     }
 
 

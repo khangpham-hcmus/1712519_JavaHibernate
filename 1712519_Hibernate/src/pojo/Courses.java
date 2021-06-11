@@ -1,6 +1,5 @@
 package pojo;
 
-import javax.naming.ldap.PagedResultsControl;
 import javax.persistence.Entity;
 import javax.persistence.IdClass;
 import java.util.HashSet;

@@ -11,6 +11,7 @@ import util.HibernateUtil;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 public class ClassesDAO {
     public static Classes GetClass(String ClassID)
@@ -139,4 +140,44 @@ public class ClassesDAO {
             return hocsinh;
         }
     }
+    public static Integer[] GetNumbers(String classid)
+    {
+        Integer datas[]=new Integer[3];
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=null;
+        try{
+            transaction=session.beginTransaction();
+            Classes lophoc=session.get(Classes.class,classid);
+            Set<Students> danhsachHocsinh=lophoc.getStudents();
+            int tongSosinhvien=danhsachHocsinh.size();
+            int tongnam=0;
+            int tongnu=0;
+            for(Students s:danhsachHocsinh)
+            {
+                if(s.getGender().equals("Male"))
+                    tongnam++;
+                else if(s.getGender().equals("Female")){
+                    tongnu++;
+                }
+            }
+            datas[0]=tongSosinhvien;
+            datas[1]=tongnam;
+            datas[2]=tongnu;
+            transaction.commit();
+
+        }
+        catch (Exception exception)
+        {
+            System.out.println("Exception in ");
+            datas[0]=-1;
+            datas[1]=-1;
+            datas[2]=-1;
+        }
+        finally {
+            if(session!=null)
+                session.close();
+        }
+        return datas;
+    }
+
 }

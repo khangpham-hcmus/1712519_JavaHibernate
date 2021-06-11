@@ -1,14 +1,13 @@
 package dao;
 
-import antlr.debug.TraceAdapter;
 import org.hibernate.Session;
-import org.hibernate.SessionEventListener;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import pojo.*;
+import pojo.Courses;
+import pojo.Students;
+import pojo.Studentscourses;
 import util.HibernateUtil;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -136,5 +135,6 @@ public class StudentsCoursesDAO {
         }
         return count;
     }
+
 
 }

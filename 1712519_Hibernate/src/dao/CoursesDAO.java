@@ -6,10 +6,11 @@ import org.hibernate.query.Query;
 import pojo.Courses;
 import pojo.CoursesPK;
 import pojo.Semesters;
-import pojo.Subjects;
 import util.HibernateUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CoursesDAO {
     public static  List<Courses> GetListCourses()
@@ -132,5 +133,23 @@ public class CoursesDAO {
             }
         }
         return check;
+    }
+    public static List<Courses> GetCurrentSemesterCourse()
+    {
+        List<Courses> ds = new ArrayList<>(0);
+        try {
+            Semesters currentSemester=SemestersDAO.GetCurrentSemester();
+            Set<Courses> dskhoahoc= currentSemester.getCourses();
+            for(Courses c:dskhoahoc)
+            {
+                ds.add(c);
+            }
+        }
+        catch (Exception e)
+        {
+            ds=null;
+            System.out.println(e.getMessage());
+        }
+        return ds;
     }
 }

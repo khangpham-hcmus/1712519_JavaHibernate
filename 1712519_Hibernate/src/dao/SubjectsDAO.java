@@ -137,4 +137,24 @@ public class SubjectsDAO {
         }
         return checkUpdate;
     }
+    public static boolean UpdateCreditSubject(String subjectID,int creditNum)
+    {
+         boolean check=false;
+         Session session=HibernateUtil.getSessionFactory().openSession();
+         Transaction transaction=null;
+         try{
+             transaction=session.beginTransaction();
+             Subjects sb=session.get(Subjects.class,subjectID);
+             sb.setCreditNumber(creditNum);
+             session.saveOrUpdate(sb);
+             transaction.commit();
+             check=true;
+         }
+         catch (Exception e)
+         {
+             System.out.println("Exception in subjectDAO update subject credit method: "+e.getMessage());
+             check=false;
+         }
+        return  check;
+    }
 }

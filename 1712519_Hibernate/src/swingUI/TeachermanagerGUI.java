@@ -1,23 +1,15 @@
 package swingUI;
 
-import dao.AccountsDAO;
-import dao.CoursesDAO;
-import dao.SemestersDAO;
-import dao.SubjectsDAO;
-import pojo.Accounts;
-import pojo.Courses;
-import pojo.Semesters;
-import pojo.Subjects;
+import dao.*;
+import pojo.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import java.util.List;
+import java.util.Vector;
 
 public class TeachermanagerGUI extends JFrame {
     public static final String ACTION_COMMAND = "Teachermanager";
@@ -41,8 +33,15 @@ public class TeachermanagerGUI extends JFrame {
     private JButton jbtCreateSemester=null;
     private  JButton jbtCreateCourse=null;
     private JButton jbtDeleteCourse=null;
+    private  JButton jbtUpdateInformationSubject=null;
+
+    private  JButton jbtListClasses=null;
+    private  JButton jbtAddClass=null;
+    private JButton jbtDeleteClass=null;
+
     private JPanel LeftPanel=null;
     private JPanel RightPanel=null;
+
 
     public TeachermanagerGUI() {
 
@@ -61,38 +60,50 @@ public class TeachermanagerGUI extends JFrame {
         LeftPanel = new JPanel();
         LeftPanel.setLayout(new GridLayout(0, 1));
 
-        jbtInformation=new JButton("Information account");
-        jbtListAccountManager=new JButton("List teacherManager");
+        jbtInformation=new JButton("Information teachermanager");
+        jbtListAccountManager=new JButton("List teachermanager");
+        jbtUpdateInformationSubject=new JButton("Update credit subject");
         jbtAddAccount =new JButton("Add new account");
         jbtSearchAccount=new JButton("Search account");
         jbtChangeInformation=new JButton("Change information");
-        jbtListSubjects=new JButton("List of subjects");
-        jbtAddSubject=new JButton("Insert Subject");
-        jbtDeletesubject=new JButton("Delete Subject");
+        jbtListSubjects=new JButton("List subjects");
+        jbtAddSubject=new JButton("Insert subject");
+        jbtDeletesubject=new JButton("Delete subject");
         jbtSearchSubject=new JButton("Search subject");
-        jbtListSemesterRegistrated=new JButton("List semester registrated ");
+        jbtListSemesterRegistrated=new JButton("List semester registration ");
         jbtCreateSemester=new JButton("Create semester to registration");
-        jbtCreateCourse=new JButton("Create Course");
+        jbtCreateCourse=new JButton("Add course");
         jbtDeleteCourse=new JButton("Delete course");
         jbtDeleteAccount=new JButton("Delete account");
         jbtResetPassword=new JButton("Reset password");
         jbtChangePassword = new JButton("Change password");
         jbtLogout = new JButton("Log out");
+        jbtListClasses=new JButton("List Classes");
+        jbtAddClass =new JButton("Add new class");
+
 
         LeftPanel.add(jbtInformation);
         LeftPanel.add(jbtListAccountManager);
         LeftPanel.add(jbtAddAccount);
         LeftPanel.add(jbtSearchAccount);
+        LeftPanel.add(jbtDeleteAccount);
+
         LeftPanel.add(jbtListSubjects);
         LeftPanel.add(jbtAddSubject);
-        LeftPanel.add(jbtDeletesubject);
         LeftPanel.add(jbtSearchSubject);
+        LeftPanel.add(jbtDeletesubject);
+        LeftPanel.add(jbtUpdateInformationSubject);
+
         LeftPanel.add(jbtListSemesterRegistrated);
         LeftPanel.add(jbtCreateSemester);
         LeftPanel.add(jbtCreateCourse);
         LeftPanel.add(jbtDeleteCourse);
         LeftPanel.add(jbtChangeInformation);
-        LeftPanel.add(jbtDeleteAccount);
+
+        LeftPanel.add(jbtListClasses);
+        LeftPanel.add(jbtAddClass);
+
+
         LeftPanel.add(jbtResetPassword);
         LeftPanel.add(jbtChangePassword);
         LeftPanel.add(jbtLogout);
@@ -336,7 +347,7 @@ public class TeachermanagerGUI extends JFrame {
                         RightPanel.repaint();
                         String[]headers={"SubjectID","SubjectName","Credit number"};
                         String [][]data={
-                                {sb.getSubjectId(),sb.getSubjectId(),sb.getCreditNumber().toString()}
+                                {sb.getSubjectId(),sb.getSubjectName(),sb.getCreditNumber().toString()}
                         };
                         JTable jTable=new JTable(data,headers);
                         JScrollPane jScrollPane=new JScrollPane(jTable);
@@ -356,42 +367,26 @@ public class TeachermanagerGUI extends JFrame {
                 RightPanel.revalidate();
                 //----------------------------------------------------------------------------------------
                 JPanel panel = new JPanel();
-                panel.setLayout(new GridBagLayout());
-                panel.setBackground(new Color(189, 190, 191));
-                JLabel jl4 = new JLabel("SubjectID:", SwingConstants.CENTER);
+                panel.setLayout(new GridLayout(4,2));
+
+                JLabel jl4 = new JLabel("SubjectID:");
                 JTextField jtf3 = new JTextField(20);
-                JLabel jl5 = new JLabel("SubjectName:", SwingConstants.CENTER);
+                panel.add(jl4);
+                panel.add(jtf3);
+
+                JLabel jl5 = new JLabel("SubjectName:");
                 JTextField jtf4 = new JTextField(20);
-                JLabel jl6 = new JLabel("Creditnumber:", SwingConstants.CENTER);
+                panel.add(jl5);
+                panel.add(jtf4);
+
+                JLabel jl6 = new JLabel("Creditnumber:");
                 JTextField jtf6 = new JTextField(20);
-
-                JButton jbtinsert = new JButton("Insert");
-
-                GridBagConstraints grbc = new GridBagConstraints();
-                grbc.gridx = 0;
-                grbc.gridy = 0;
-                panel.add(jl4, grbc);
-
-                grbc.gridy++;
-                panel.add(jl5, grbc);
-
-                grbc.anchor = GridBagConstraints.EAST;
-                grbc.fill = GridBagConstraints.HORIZONTAL;
-                grbc.gridx++;
-                grbc.gridy = 0;
-                panel.add(jtf3, grbc);
-
-                grbc.gridy++;
-                panel.add(jtf4, grbc);
-
                 panel.add(jl6);
-                grbc.gridx++;
                 panel.add(jtf6);
 
-                grbc.anchor = GridBagConstraints.WEST;
-                grbc.fill = GridBagConstraints.NONE;
-                grbc.gridy++;
-                panel.add(jbtinsert, grbc);
+                JButton jbtinsert = new JButton("Insert");
+                panel.add(jbtinsert);
+
                 RightPanel.add(panel);
 
                 jbtinsert.addActionListener(new ActionListener() {
@@ -686,6 +681,121 @@ public class TeachermanagerGUI extends JFrame {
 
 
 
+            }
+        });
+        jbtUpdateInformationSubject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //
+                JPanel jPanel1=new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JLabel jlb1=new JLabel("SubjectID: ");
+                JTextField jtf1=new JTextField(15);
+                jPanel1.add(jlb1);
+                jPanel1.add(jtf1);
+
+                JPanel jPanel2=new JPanel(new FlowLayout(FlowLayout.LEFT));
+                JLabel jlb2=new JLabel("New credit number: ");
+                JTextField jtf2=new JTextField(15);
+                jPanel2.add(jlb2);
+                jPanel2.add(jtf2);
+
+                JButton jButton=new JButton("Update");
+                JPanel jPanel3=new JPanel(new FlowLayout(FlowLayout.LEFT));
+                jPanel3.add(jButton);
+
+                JPanel jPanel4=new JPanel(new FlowLayout(FlowLayout.LEFT));
+                jPanel4.add(jPanel1);
+                jPanel4.add(jPanel2);
+                jPanel4.add(jPanel3);
+
+                RightPanel.add(jPanel4);
+
+                jButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String subjectID=null;
+                        int creditNumber=0;
+                        boolean b=false;
+                        try{
+                            subjectID=jtf1.getText();
+                            creditNumber= Integer.parseInt(jtf2.getText());
+                            b=SubjectsDAO.UpdateCreditSubject(subjectID,creditNumber);
+                        }
+                        catch (Exception exc)
+                        {
+                            b=false;
+                        }
+                        if(b)
+                        {
+                            JOptionPane.showMessageDialog(RightPanel,"Update successfully");
+                        }
+                        else{
+                            JOptionPane.showMessageDialog(RightPanel,"Update failed");
+                        }
+                    }
+                });
+            }
+        });
+        jbtListClasses.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //
+                Vector headers  =new Vector();
+                Integer i=0;
+                headers.add("STT");
+                headers.add("ClassID");
+                headers.add("Sum");
+                headers.add("Male");
+                headers.add("Female");
+
+                Vector datas=new Vector();
+                List<Classes> danhsachLopHoc= ClassesDAO.GetListClasses();
+                for(Classes s:danhsachLopHoc)
+                {
+                    Integer soluong[]=ClassesDAO.GetNumbers(s.getClassId());
+                    Vector line=new Vector();
+                    line.add(i.toString());
+                    line.add(s.getClassId());
+                    line.add(soluong[0].toString());
+                    line.add(soluong[1].toString());
+                    line.add(soluong[2].toString());
+                    datas.add(line);
+                }
+
+                JTable jTable=new JTable(new DefaultTableModel(datas,headers));
+                JScrollPane jScrollPane=new JScrollPane(jTable);
+                RightPanel.add(jScrollPane);
+            }
+        });
+        jbtAddClass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+
+                String id=JOptionPane.showInputDialog(RightPanel,"Input new classID","Add new class",JOptionPane.WARNING_MESSAGE);
+                boolean b=false;
+                try{
+                    b=ClassesDAO.AddClass(id);
+                }
+                catch (Exception exception)
+                {
+                    b=false;
+                }
+                if(b)
+                {
+                    JOptionPane.showMessageDialog(RightPanel,"Insert okey");
+                }
+                else
+                    JOptionPane.showMessageDialog(RightPanel,"Insert failed");
             }
         });
 
