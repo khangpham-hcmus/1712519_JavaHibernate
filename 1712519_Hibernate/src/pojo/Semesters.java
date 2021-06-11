@@ -1,5 +1,7 @@
 package pojo;
 
+import dao.SemestersDAO;
+
 import javax.persistence.Entity;
 import javax.persistence.IdClass;
 import java.io.Serializable;
@@ -92,11 +94,12 @@ public class Semesters implements Serializable {
     @Override
     public String toString() {
         return "Semesters{" +
-                "semestersPrimarykey=" + semestersPrimarykey +
+                 semestersPrimarykey +
                 ", dayBegin='" + dayBegin + '\'' +
                 ", dayEnd='" + dayEnd + '\'' +
-                ", courses=" + courses +
-                ", currentSemester='" + currentSemester + '\'' +
                 '}';
     }
+    public String getYear(){return this.semestersPrimarykey.getSemesterYear();}
+    public String getName(){return this.semestersPrimarykey.getSemesterName();}
+
 }

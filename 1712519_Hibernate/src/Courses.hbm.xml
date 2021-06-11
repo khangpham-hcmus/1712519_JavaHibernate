@@ -29,6 +29,10 @@
             <column name="MaxSlot" sql-type="int" not-null="true"/>
         </property>
 
+        <property name="room">
+            <column name="Room" sql-type="varchar(10)" length="10" />
+        </property>
+
         <many-to-one name="subject" class="pojo.Subjects"
                      fetch="join"
                      lazy="false"

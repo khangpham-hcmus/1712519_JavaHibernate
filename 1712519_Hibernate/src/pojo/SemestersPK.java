@@ -46,9 +46,8 @@ public class SemestersPK implements Serializable {
 
     @Override
     public String toString() {
-        return "[" +
+        return
                 "semesterYear='" + semesterYear + '\'' +
-                ", semesterName='" + semesterName + '\'' +
-                ']';
+                ", semesterName='" + semesterName ;
     }
 }

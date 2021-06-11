@@ -4,11 +4,13 @@ import antlr.preprocessor.Hierarchy;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import pojo.Courses;
 import pojo.Semesters;
 import pojo.SemestersPK;
 import util.HibernateUtil;
 
 import java.util.List;
+import java.util.Set;
 
 public class SemestersDAO {
     public  static List<Semesters> GetListSemesters()
@@ -50,6 +52,9 @@ public class SemestersDAO {
     public static boolean AddSemester(Semesters hockimoi)
     {
         boolean check=false;
+        Semesters semester=SemestersDAO.GetSemester(hockimoi.getSemestersPrimarykey());
+        if(semester!=null)
+            return false;//hoc ki da ton tai.
         Session session= HibernateUtil.getSessionFactory().openSession();
         Transaction transaction=null;
         try{
@@ -57,6 +62,9 @@ public class SemestersDAO {
             session.save(hockimoi);
             transaction.commit();
             check=true;
+            if(hockimoi.getCurrentSemester().equals("1"))
+                SemestersDAO.SetCurrentSemesterTrue(hockimoi);
+
         }
         catch (Exception e)
         {
@@ -144,5 +152,45 @@ public class SemestersDAO {
             }
         }
         return  checkDelete;
+    }
+    public static Semesters GetCurrentSemester()
+    {
+        Semesters currentSemester=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=null;
+        try{
+            transaction=session.beginTransaction();
+            String hql="select s from Semesters as s where s.currentSemester=: status";
+            Query q=session.createQuery(hql);
+            q.setParameter("status","1");
+            currentSemester=(Semesters)q.list().get(0);
+            transaction.commit();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception in SemesterDAO currentSemester method: "+e.getMessage());
+            currentSemester=null;
+        }
+        finally {
+            if(session!=null)
+                session.close();
+        }
+        return currentSemester;
+    }
+    public static Set<Courses> GetOpenedCourseCurrent()
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Set<Courses> coursesOpened=null;
+        try {
+            Semesters currentSemester=SemestersDAO.GetCurrentSemester();
+            System.out.println(currentSemester.toString());
+            coursesOpened=currentSemester.getCourses();
+        }
+        catch (Exception exception)
+        {
+            System.out.println("Exception in SemesterDAO getOpenedCourse method "+exception.getMessage());
+        }
+
+        return coursesOpened;
     }
 }

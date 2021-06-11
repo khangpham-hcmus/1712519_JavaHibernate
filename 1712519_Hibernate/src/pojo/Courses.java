@@ -15,6 +15,7 @@ public class Courses implements java.io.Serializable {
     private String dayOfWeek;
     private Integer shift;
     private Integer maxSlot;
+    private String room;
     private CoursesPK CoursePK;
     //-------------------------------------------
     private Set<Studentscourses> studentscoursesSet=new HashSet<Studentscourses>(0);
@@ -36,6 +37,16 @@ public class Courses implements java.io.Serializable {
 
     public void setClasses(Classes classes) {
         this.classes = classes;
+    }
+
+    //----------------------------------------------
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 
     //------------------------------------------
@@ -74,7 +85,6 @@ public class Courses implements java.io.Serializable {
 
     }
     //--getter setter
-
     public String getTheoryTeacher() {
         return theoryTeacher;
     }
@@ -120,12 +130,12 @@ public class Courses implements java.io.Serializable {
         if (this == o) return true;
         if (!(o instanceof Courses)) return false;
         Courses courses = (Courses) o;
-        return Objects.equals(getTheoryTeacher(), courses.getTheoryTeacher()) && Objects.equals(getDayOfWeek(), courses.getDayOfWeek()) && Objects.equals(getShift(), courses.getShift()) && Objects.equals(getMaxSlot(), courses.getMaxSlot()) && Objects.equals(getCoursePK(), courses.getCoursePK());
+        return Objects.equals(getTheoryTeacher(), courses.getTheoryTeacher()) && Objects.equals(getDayOfWeek(), courses.getDayOfWeek()) && Objects.equals(getShift(), courses.getShift()) && Objects.equals(getMaxSlot(), courses.getMaxSlot()) && Objects.equals(getRoom(), courses.getRoom()) && Objects.equals(getCoursePK(), courses.getCoursePK());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTheoryTeacher(), getDayOfWeek(), getShift(), getMaxSlot(), getCoursePK());
+        return Objects.hash(getTheoryTeacher(), getDayOfWeek(), getShift(), getMaxSlot(), getRoom(), getCoursePK());
     }
 
     @Override
@@ -133,8 +143,25 @@ public class Courses implements java.io.Serializable {
         return "Courses{" + CoursePK +", "+
                 "theoryTeacher='" + theoryTeacher + '\'' +
                 ", dayOfWeek='" + dayOfWeek + '\'' +
-                ", shift=" + shift +
+                ", shift=" + this.getTimeStringShift(shift) +
                 ", maxSlot=" + maxSlot +
+                ", room=" + room +
                 '}';
     }
+    public String getTimeStringShift(int shift)
+    {
+        switch (shift)
+        {
+            case 1: return "7h30-9h30";
+            case 2: return "9h30-11h30";
+            case 3: return "13h30-15h30";
+            default: return "15h30-17h30";
+        }
+    }
+    public String getSemesterYearCourse(){return this.getCoursePK().getSemesterYear();}
+    public String getSemesterNameCourse(){return this.getCoursePK().getSemesterName();}
+    public String getSubjectIdCourse(){return this.getCoursePK().getSubjectId();}
+    public String getClassIdCourse(){return  this.getCoursePK().getClassId();}
+
+
 }
