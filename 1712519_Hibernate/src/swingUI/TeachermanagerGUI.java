@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 public class TeachermanagerGUI extends JFrame {
@@ -38,6 +39,8 @@ public class TeachermanagerGUI extends JFrame {
     private  JButton jbtListClasses=null;
     private  JButton jbtAddClass=null;
     private JButton jbtDeleteClass=null;
+
+    private JButton jbtListStudents=null;
 
     private JPanel LeftPanel=null;
     private JPanel RightPanel=null;
@@ -75,11 +78,12 @@ public class TeachermanagerGUI extends JFrame {
         jbtCreateCourse=new JButton("Add course");
         jbtDeleteCourse=new JButton("Delete course");
         jbtDeleteAccount=new JButton("Delete account");
-        jbtResetPassword=new JButton("Reset password");
+        jbtResetPassword=new JButton("Reset password ");
         jbtChangePassword = new JButton("Change password");
         jbtLogout = new JButton("Log out");
         jbtListClasses=new JButton("List Classes");
         jbtAddClass =new JButton("Add new class");
+        jbtListStudents=new JButton("List students at class");
 
 
         LeftPanel.add(jbtInformation);
@@ -102,6 +106,7 @@ public class TeachermanagerGUI extends JFrame {
 
         LeftPanel.add(jbtListClasses);
         LeftPanel.add(jbtAddClass);
+        LeftPanel.add(jbtListStudents);
 
 
         LeftPanel.add(jbtResetPassword);
@@ -798,7 +803,43 @@ public class TeachermanagerGUI extends JFrame {
                     JOptionPane.showMessageDialog(RightPanel,"Insert failed");
             }
         });
+        jbtListStudents.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
+                JTable jTable=null;
+                JScrollPane jScrollPane=null;
+                String classID=JOptionPane.showInputDialog(RightPanel,"Input classID to see students","List students",JOptionPane.WARNING_MESSAGE);
+                Classes b=ClassesDAO.GetClass(classID);
+                Vector headers=new Vector();
+                headers.add("StudentID");
+                headers.add("ClassID");
+                headers.add("Fullname");
+                Vector datass=new Vector();
+                if(b!=null)
+                {
+                    Set<Students> danhsachHS=b.getStudents();
+                    for(Students s:danhsachHS)
+                    {
+                        Vector line=new Vector();
+                        line.add(s.getStudentsPK().getStudentId());
+                        line.add(b.getClassId());
+                        line.add(s.getStudentName());
+                        datass.add(line);
+                    }
+
+                    RightPanel.removeAll();
+                    RightPanel.revalidate();
+                    RightPanel.repaint();
+                    jTable=new JTable(new DefaultTableModel(datass,headers));
+                    jScrollPane=new JScrollPane(jTable);
+                    RightPanel.add(jScrollPane);
+                }
+                else
+                    JOptionPane.showMessageDialog(RightPanel,"Class does not exist");
+
+            }
+        });
     }
     public void addLogoutListener(ActionListener listener)
     {
