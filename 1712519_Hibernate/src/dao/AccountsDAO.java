@@ -158,10 +158,8 @@ public class AccountsDAO {
                 transaction=session.beginTransaction();
                 if(ac.getTypeOfAccount()==1)
                 {
-                    Teachermanagers teachermanagers=new Teachermanagers();
-                    teachermanagers.setTeacherManagerId(ac.getUserName());
-                    teachermanagers.setTeacherManagerName(newName);
-                    ac.setTeachermanager(teachermanagers);
+                    ac.getTeachermanager().setTeacherManagerName(newName);
+                    session.saveOrUpdate(ac);
                 }
                 else if(ac.getTypeOfAccount()==2)
                 {

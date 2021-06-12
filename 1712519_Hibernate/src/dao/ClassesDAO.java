@@ -1,6 +1,5 @@
 package dao;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -9,7 +8,6 @@ import pojo.InformationOfClass;
 import pojo.Students;
 import util.HibernateUtil;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;

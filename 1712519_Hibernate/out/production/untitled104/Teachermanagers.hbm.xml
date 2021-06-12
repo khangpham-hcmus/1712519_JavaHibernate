@@ -6,7 +6,7 @@
     <class name="pojo.Teachermanagers" table="teachermanagers" schema="dangkyhocphan">
 
         <id name="teacherManagerId">
-            <column name="TeacherManagerID" sql-type="varchar(10)" length="10"/>
+            <column name="TeacherManagerID" sql-type="varchar(10)" length="10" not-null="true"/>
         </id>
 
         <property name="teacherManagerName">
