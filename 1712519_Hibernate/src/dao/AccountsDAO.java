@@ -2,11 +2,14 @@ package dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import pojo.Accounts;
 import pojo.Students;
 import pojo.StudentsPK;
 import pojo.Teachermanagers;
 import util.HibernateUtil;
+
+import java.util.List;
 
 //------------------------------------------------------------
 public class AccountsDAO {
@@ -240,12 +243,53 @@ public class AccountsDAO {
     public static boolean ResetPassword(String username)
     {
         boolean checkReset=false;
+        Session session=HibernateUtil.getSessionFactory().openSession();
         Accounts ac=AccountsDAO.GetAccount(username);
-        if(ac==null)
-            return false;
-        else
-            ac.setPass(username);
+        Transaction transaction=null;
+        if(ac!=null)
+        {
+            try{
+                transaction=session.beginTransaction();
+                ac.setPass(ac.getUserName());
+                session.saveOrUpdate(ac);
+                transaction.commit();
+                checkReset=true;
+            }
+            catch (Exception e)
+            {
+                System.out.println(e.getMessage());checkReset=false;
+            }
+            finally {
+                if (session!=null)
+                    session.close();
+            }
+        }
         return checkReset;
+    }
+    public  static List<Accounts> GetTeachermanagerAccount()
+    {
+        List<Accounts> danhsach=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction=null;
+        try
+        {
+            transaction=session.beginTransaction();
+            String hql="select a from Accounts as a where a.typeOfAccount=:b";
+            Query query=session.createQuery(hql);
+            query.setParameter("b",1);
+            danhsach= (List<Accounts>) query.list();
+            transaction.commit();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception in AccountDAO: "+e.getMessage());
+            danhsach=null;
+        }
+        finally {
+            if(session!=null)
+                session.close();
+        }
+        return danhsach;
     }
 
 }

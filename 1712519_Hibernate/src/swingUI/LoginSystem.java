@@ -88,5 +88,8 @@ public class LoginSystem extends JFrame {
     {
         JOptionPane.showMessageDialog(this,message);
     }
-
+    public void setJlabel(String mess)
+    {
+        this.jlbmessage.setText(mess);
+    }
 }

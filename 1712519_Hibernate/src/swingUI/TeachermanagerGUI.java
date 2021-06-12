@@ -4,19 +4,26 @@ import dao.AccountsDAO;
 import pojo.Accounts;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.*;
+import java.util.List;
 
 public class TeachermanagerGUI extends JFrame {
     public static final String ACTION_COMMAND = "Teachermanager";
 
     private Accounts currentAccount;
 
-    private JButton jbtChangeInfomation=null;
     private JButton jbtInformation=null;
+    private JButton jbtListAccountManager=null;
+    private JButton jbtChangeInformation=null;
     private JButton jbtChangePassword=null;
     private JButton jbtLogout=null;
+    private JButton jbtSearchAccount=null;
+    private JButton jbtAddAccount=null;
+    private JButton jbtResetPassword=null;
 
     private JPanel LeftPanel=null;
     private JPanel RightPanel=null;
@@ -38,13 +45,21 @@ public class TeachermanagerGUI extends JFrame {
         LeftPanel = new JPanel();
         LeftPanel.setLayout(new GridLayout(0, 1));
 
-        jbtChangeInfomation=new JButton("Change information account");
         jbtInformation=new JButton("Information account");
+        jbtListAccountManager=new JButton("List teacherManager");
+        jbtAddAccount =new JButton("Add new account");
+        jbtSearchAccount=new JButton("Search account");
+        jbtChangeInformation=new JButton("Change information");
+        jbtResetPassword=new JButton("Reset password");
         jbtChangePassword = new JButton("Change password");
         jbtLogout = new JButton("Log out");
 
-        LeftPanel.add(jbtChangeInfomation);
         LeftPanel.add(jbtInformation);
+        LeftPanel.add(jbtListAccountManager);
+        LeftPanel.add(jbtAddAccount);
+        LeftPanel.add(jbtSearchAccount);
+        LeftPanel.add(jbtChangeInformation);
+        LeftPanel.add(jbtResetPassword);
         LeftPanel.add(jbtChangePassword);
         LeftPanel.add(jbtLogout);
 
@@ -56,7 +71,7 @@ public class TeachermanagerGUI extends JFrame {
     }
 
     private void initEvents() {
-        jbtChangeInfomation.addActionListener(new ActionListener() {
+        jbtChangeInformation.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //----------------------------------------------------------------------------------------
@@ -102,7 +117,6 @@ public class TeachermanagerGUI extends JFrame {
                 newPanel.add(jScrollPane);
 
                 RightPanel.add(newPanel);
-
             }
         });
         jbtChangePassword.addActionListener(new ActionListener() {
@@ -125,14 +139,111 @@ public class TeachermanagerGUI extends JFrame {
                 }
             }
         });
-    }
+        jbtListAccountManager.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //-------------------------------------------------------------------------------------
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //-------------------------------------------------------------------------------------
+                List<Accounts> danhsachTK=AccountsDAO.GetTeachermanagerAccount();
+                Vector header=new Vector();
+                header.add("Username");
+                header.add("Password");
+                header.add("Fullname");
+                Vector datas=new Vector();
+                for(Accounts a:danhsachTK)
+                {
+                    Vector dataLine=new Vector();
+                    dataLine.add(a.getUserName());
+                    dataLine.add(a.getPass());
+                    dataLine.add(a.getTeachermanager().getTeacherManagerName());
+                    datas.add(dataLine);
+                }
+                JTable tables=new JTable(new DefaultTableModel(datas,header));
+                JScrollPane jScrollPane=new JScrollPane(tables);
+                RightPanel.add(jScrollPane);
 
+            }
+        });
+        jbtSearchAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //-------------------------------------------------------------------------------------
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //-------------------------------------------------------------------------------------
+                RightPanel.add(new JPanel());
+                JTable jTable=null;
+                String username = JOptionPane.showInputDialog(RightPanel,"Input username:","Search acocunt",JOptionPane.WARNING_MESSAGE);
+                if(username != null && username.isEmpty() == false) {
+                    Accounts taikhoan= AccountsDAO.GetAccount(username);
+                    if(taikhoan!=null) {
+                        String[]columnsName={"Username","Password","Fullname"};
+                        String[][] datas={
+                                {taikhoan.getUserName(),taikhoan.getPass(),taikhoan.getTeachermanager().getTeacherManagerName()}
+                        };
+                        jTable=new JTable(datas,columnsName);
+                        JScrollPane jScrollPane=new JScrollPane(jTable);
+                        RightPanel.removeAll();
+                        RightPanel.revalidate();
+                        RightPanel.repaint();
+                        RightPanel.add(jScrollPane);
+                    } else {
+                        JOptionPane.showMessageDialog(RightPanel, "Account is not existing");
+                    }
+                }
+            }
+        });
+        jbtAddAccount.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //-------------------------------------------------------------------------------------
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //-------------------------------------------------------------------------------------
+                RightPanel.add(new JPanel());
+                JTable jTable=null;
+                String username = JOptionPane.showInputDialog(RightPanel,"Input new username:","Insert new account",JOptionPane.WARNING_MESSAGE);
+                if(username != null && username.isEmpty() == false) {
+                    boolean b=AccountsDAO.AddTeacherManagerAccount(username);
+                    if(b) {
+                        JOptionPane.showMessageDialog(RightPanel, "Insert successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(RightPanel, "Insert failed");
+                    }
+                }
+            }
+        });
+        jbtResetPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //-------------------------------------------------------------------------------------
+                RightPanel.removeAll();
+                RightPanel.revalidate();
+                RightPanel.repaint();
+                //-------------------------------------------------------------------------------------
+                RightPanel.add(new JPanel());
+                String username=currentAccount.getUserName();
+                boolean b=AccountsDAO.ResetPassword(username);
+                if(b) {
+                        JOptionPane.showMessageDialog(RightPanel, "Reset password successfully");
+                }
+                else {
+                        JOptionPane.showMessageDialog(RightPanel, "Reset failed");
+                }
+            }
+        });
+
+    }
     public void addLogoutListener(ActionListener listener)
     {
         jbtLogout.addActionListener(listener);
         jbtLogout.setActionCommand(ACTION_COMMAND);
     }
-
     //----------------------------------------------
     public void setCurrentAccount(Accounts acc)
     {
@@ -142,7 +253,8 @@ public class TeachermanagerGUI extends JFrame {
     {
         return this.currentAccount;
     }
-    public void SetVisible(boolean value){
+    public void ShowGUI(boolean value)
+    {
         this.pack();
         this.setVisible(value);
     }
